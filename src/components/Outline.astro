@@ -1,0 +1,261 @@
+---
+// The 4-part tutorial outline. Each part lists representative failure patterns,
+// the diagnostics used to surface them, and the fixes covered in the part.
+// Safety is threaded through Parts 2 to 4 rather than being a standalone part.
+
+const parts = [
+  {
+    n: 'Part 1',
+    title: 'Agent Environments and Infrastructure',
+    minutes: 35,
+    failures: [
+      'Brittle tool use under interface shifts',
+      'Unstable memory over long episodes',
+      'Unfaithful chain-of-thought traces',
+    ],
+    diagnostics: [
+      'Trajectory schemas for actions, tools, and memory',
+      'Minimal closed-loop scaffolds as test stands',
+      'Process metrics beyond terminal success',
+    ],
+    fixes: [
+      'Tool and memory interface contracts',
+      'Standardized logging and trace tooling',
+      'Runnable baselines others can replay',
+    ],
+  },
+  {
+    n: 'Part 2',
+    title: 'Training Dynamics',
+    minutes: 50,
+    failures: [
+      'Echo Trap: reasoning decays into templates',
+      'Entropy and mode collapse under KL',
+      'Reward hacking and overoptimization',
+    ],
+    diagnostics: [
+      'Reward variance, entropy, gradient norms',
+      'Mutual-information and SNR-aware filtering',
+      'Policy-gradient decomposition for instability',
+    ],
+    fixes: [
+      'Variance-aware trajectory filtering',
+      'KL choices that preserve diversity',
+      'Large-scale recipes like DAPO',
+    ],
+  },
+  {
+    n: 'Part 3',
+    title: 'Evaluation and Trace Diagnostics',
+    minutes: 45,
+    failures: [
+      'Benchmark gains that vanish in deployment',
+      'Hallucination and knowledge overshadowing',
+      'Out-of-sync recovery failures',
+    ],
+    diagnostics: [
+      'Process-level, behavioral testing',
+      'Contrastive and counterfactual evaluation',
+      'Asynchronous, adversarial environments',
+    ],
+    fixes: [
+      'Standardized trace logging and reproductions',
+      'Conflict-aware reviewing and meta-eval hygiene',
+      'Comparable protocols across papers',
+    ],
+  },
+  {
+    n: 'Part 4',
+    title: 'Test-Time Scaling and Adaptation',
+    minutes: 35,
+    failures: [
+      'Budget unawareness: overspent tokens and calls',
+      'Uncontrolled exploration in rollouts',
+      'Diversity collapse from format constraints',
+    ],
+    diagnostics: [
+      'Cost-aware trace analysis (BAGEN)',
+      'Uncertainty-guided exploration control (T2PO)',
+      'Diversity-aware optimization and format audits',
+    ],
+    fixes: [
+      'Context management with long-context models',
+      'Inference scaffolds with recovery and abstention',
+      'Evolving rubrics for long-form tasks',
+    ],
+  },
+];
+---
+<section id="outline" class="content-section">
+  <div class="section-container">
+    <h2 class="section-title">Tutorial Outline</h2>
+
+    <div class="parts">
+      {parts.map((p) => (
+        <article class="part">
+          <header class="part-header">
+            <div class="part-tag">
+              <span class="part-n">{p.n}</span>
+              <span class="part-time">{p.minutes} min</span>
+            </div>
+            <h3 class="part-title">{p.title}</h3>
+          </header>
+
+          <div class="part-cols">
+            <div class="col col-fail">
+              <h4>Failure patterns</h4>
+              <ul>{p.failures.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div class="col col-diag">
+              <h4>Diagnostics</h4>
+              <ul>{p.diagnostics.map((x) => <li>{x}</li>)}</ul>
+            </div>
+            <div class="col col-fix">
+              <h4>Fixes</h4>
+              <ul>{p.fixes.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #outline {
+    background: #f8f9fa;
+    padding: 4rem 1rem;
+  }
+
+  .section-container {
+    max-width: var(--page-max-width, 1100px);
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #2a2f6c;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .parts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .part {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e6e8ef;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .part:hover {
+    box-shadow: 0 14px 32px rgba(42, 47, 108, 0.07);
+    border-color: rgba(42, 47, 108, 0.18);
+  }
+
+  .part-header {
+    padding: 1.4rem 1.6rem 1rem;
+    border-bottom: 1px solid #f0f1f5;
+  }
+
+  .part-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .part-n {
+    background: #2a2f6c;
+    color: white;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .part-time {
+    background: #f0f1f8;
+    color: #2a2f6c;
+    font-weight: 600;
+    font-size: 0.78rem;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  .part-title {
+    font-size: 1.4rem;
+    color: #2a2f6c;
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+
+  .part-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #f0f1f5;
+  }
+
+  .col {
+    background: white;
+    padding: 1.2rem 1.2rem 1.4rem;
+  }
+
+  .col h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f1f5;
+  }
+
+  .col-fail h4 { color: #b54040; border-bottom-color: rgba(181, 64, 64, 0.25); }
+  .col-diag h4 { color: #b07a14; border-bottom-color: rgba(176, 122, 20, 0.25); }
+  .col-fix  h4 { color: #1d7a3a; border-bottom-color: rgba(29, 122, 58, 0.25); }
+
+  .col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .col li {
+    font-size: 0.92rem;
+    color: #4a4a4a;
+    line-height: 1.55;
+    padding: 0.4rem 0 0.4rem 1.1rem;
+    position: relative;
+  }
+
+  .col li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #2a2f6c;
+    opacity: 0.4;
+  }
+
+  .col-fail li::before { background: #b54040; }
+  .col-diag li::before { background: #b07a14; }
+  .col-fix  li::before { background: #1d7a3a; }
+
+  @media (max-width: 800px) {
+    .part-cols { grid-template-columns: 1fr; }
+    .section-title { font-size: 1.9rem; }
+  }
+</style>

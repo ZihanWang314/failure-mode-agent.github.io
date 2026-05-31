@@ -1,0 +1,61 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const { title, description } = Astro.props;
+const siteDescription = description ?? 'Failure Modes in Agentic AI (FAGEN), EMNLP 2026 Tutorial Proposal. Reproducible triggers, trace diagnostics, and verified fixes for closed-loop agent systems.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={siteDescription} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --header-height: 60px;
+    --page-max-width: 1100px;
+    --text-light: #555;
+    --accent: #2a2f6c;
+    --accent-light: #4a56c9;
+    --bg-soft: #f8f9fa;
+    --border-soft: #e0e0e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #252525;
+    scroll-behavior: smooth;
+  }
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #f8f9fa;
+    background-image: url('/background-blurred.svg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  main { padding-top: var(--header-height); }
+</style>

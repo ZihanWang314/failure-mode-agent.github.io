@@ -1,0 +1,125 @@
+---
+// Contact + community / call-for-contributions block.
+---
+<section id="contact" class="content-section">
+  <div class="section-container">
+    <h2 class="section-title">Contact and Community</h2>
+
+    <div class="contact-grid">
+      <div class="c-card">
+        <h3>Get in touch</h3>
+        <p>
+          For tutorial questions, materials, or collaboration, email the organizing contacts.
+        </p>
+        <div class="emails">
+          <a href="mailto:zihanw@u.northwestern.edu" class="email-pill">zihanw@u.northwestern.edu</a>
+          <a href="mailto:manling.li@northwestern.edu" class="email-pill">manling.li@northwestern.edu</a>
+        </div>
+      </div>
+
+      <div class="c-card">
+        <h3>Contribute a failure mode</h3>
+        <p>
+          We welcome reproducible triggers, trace examples, and verified fixes, including high-quality
+          negative results. Submissions feed the tutorial's diagnostics gallery.
+        </p>
+        <p class="c-emphasis">
+          What we look for: a minimal setup, an operational definition, a trace, and a sanity-checked fix.
+        </p>
+      </div>
+
+      <div class="c-card">
+        <h3>Stay in the loop</h3>
+        <p>
+          Slides, recordings, and code will be released here after EMNLP 2026.
+        </p>
+        <p>
+          Companion venue: the <a class="subtle-link" href="https://failure-mode-agent.github.io" target="_blank" rel="noopener">
+          FAGEN workshop</a> at ICML 2026 covers the same agenda in long form.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #contact { background: #f8f9fa; padding: 4rem 1rem; }
+
+  .section-container { max-width: var(--page-max-width, 1100px); margin: 0 auto; }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #2a2f6c;
+    text-align: center;
+    margin-bottom: 2.2rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .c-card {
+    background: white;
+    border: 1px solid #e6e8ef;
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem 1.6rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .c-card:hover {
+    border-color: rgba(42, 47, 108, 0.2);
+    box-shadow: 0 10px 24px rgba(42, 47, 108, 0.06);
+  }
+
+  .c-card h3 {
+    color: #2a2f6c;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+  }
+
+  .c-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 0.7rem;
+  }
+
+  .c-emphasis {
+    background: #f0f1f8;
+    border-left: 3px solid #2a2f6c;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.88rem;
+    color: #444;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .emails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+  }
+
+  .email-pill {
+    display: inline-block;
+    background: #f0f1f8;
+    color: #2a2f6c;
+    text-decoration: none;
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+
+  .email-pill:hover { background: #e3e5f5; }
+
+  @media (max-width: 600px) {
+    .section-title { font-size: 1.9rem; }
+  }
+</style>

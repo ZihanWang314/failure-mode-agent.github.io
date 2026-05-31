@@ -1,0 +1,132 @@
+---
+// Presenter cards. The four presenters are drawn from the EMNLP 2026
+// tutorial submission author block.
+
+const speakers = [
+  {
+    name: 'Zoey Sha Li',
+    role: 'Applied Scientist, Amazon',
+    part: 'Part 2',
+    photo: '',
+    site: '',
+    email: '',
+  },
+  {
+    name: 'Zihan Wang',
+    role: 'Ph.D. Student, Northwestern University',
+    part: 'Part 3',
+    photo: '/speakers/zihan-wang.png',
+    site: 'https://zihanwang314.github.io/',
+    email: 'zihanw@u.northwestern.edu',
+  },
+  {
+    name: 'Hejie Cui',
+    role: 'Senior Research Scientist, Google',
+    part: 'Part 4',
+    photo: '',
+    site: '',
+    email: '',
+  },
+  {
+    name: 'Manling Li',
+    role: 'Assistant Professor, Northwestern University; Amazon Scholar',
+    part: 'Part 1',
+    photo: '/speakers/manling-li.jpg',
+    site: 'https://limanling.github.io/',
+    email: 'manling.li@northwestern.edu',
+  },
+];
+---
+<section id="speakers" class="content-section">
+  <div class="section-container">
+    <h2 class="section-title">Presenters</h2>
+
+    <div class="speakers-grid">
+      {speakers.map((s) => (
+        <article class="speaker-card">
+          <div class="photo-wrap">
+            {s.photo
+              ? <img class="photo" src={s.photo} alt={s.name} />
+              : <div class="photo placeholder" aria-hidden="true">{s.name.split(' ').map((p) => p[0]).join('').slice(0, 2)}</div>}
+          </div>
+          <h3 class="sp-name">
+            {s.site ? <a href={s.site} target="_blank" rel="noopener">{s.name}</a> : s.name}
+          </h3>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #speakers { background: white; padding: 4rem 1rem; }
+
+  .section-container { max-width: var(--page-max-width, 1100px); margin: 0 auto; }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #2a2f6c;
+    text-align: center;
+    margin-bottom: 2.2rem;
+  }
+
+  .speakers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .speaker-card {
+    background: white;
+    border: 1px solid #e8eaf2;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .speaker-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(42, 47, 108, 0.08);
+    border-color: rgba(42, 47, 108, 0.2);
+  }
+
+  .photo-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2a2f6c, #4a56c9);
+    color: white;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .sp-name {
+    text-align: center;
+    padding: 0.95rem 0.8rem 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #2a2f6c;
+  }
+  .sp-name a { color: #2a2f6c; text-decoration: none; }
+  .sp-name a:hover { color: #4a56c9; }
+
+  @media (max-width: 600px) {
+    .section-title { font-size: 1.9rem; }
+  }
+</style>

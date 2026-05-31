@@ -1,0 +1,21 @@
+/* Global styles. Resets and shared design tokens are defined in Layout.astro.
+   Use this file for site-wide overrides only; component visuals live in scoped <style> blocks. */
+
+a { color: inherit; }
+
+a.subtle-link {
+  color: #2a2f6c;
+  text-decoration: none;
+  border-bottom: 1px dotted #b7b9cf;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+a.subtle-link:hover {
+  color: #4a56c9;
+  border-bottom-color: #4a56c9;
+}
+
+::selection {
+  background: rgba(42, 47, 108, 0.2);
+  color: #1c2050;
+}

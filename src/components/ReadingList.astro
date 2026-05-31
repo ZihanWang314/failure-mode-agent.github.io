@@ -1,0 +1,362 @@
+---
+// Reading list, organized by tutorial part. Mirrors custom.bib.
+// Items marked * are recommended pre-tutorial reading.
+
+const sections = [
+  {
+    part: 'Part 1',
+    title: 'Agent Environments and Infrastructure',
+    items: [
+      {
+        recommended: true,
+        title: 'ReAct: Synergizing Reasoning and Acting in Language Models',
+        authors: 'Yao et al., 2023',
+        venue: 'arXiv 2210.03629',
+        link: 'https://arxiv.org/abs/2210.03629',
+      },
+      {
+        title: 'Reflexion: Language Agents with Verbal Reinforcement Learning',
+        authors: 'Shinn et al., 2023',
+        venue: 'arXiv 2303.11366',
+        link: 'https://arxiv.org/abs/2303.11366',
+      },
+      {
+        title: 'Voyager: An Open-Ended Embodied Agent with Large Language Models',
+        authors: 'Wang et al., 2023',
+        venue: 'arXiv 2305.16291',
+        link: 'https://arxiv.org/abs/2305.16291',
+      },
+      {
+        title: 'WebGPT: Browser-Assisted Question-Answering with Human Feedback',
+        authors: 'Nakano et al., 2022',
+        venue: 'arXiv 2112.09332',
+        link: 'https://arxiv.org/abs/2112.09332',
+      },
+      {
+        recommended: true,
+        title: "A Practitioner's Guide to Multi-Turn Agentic Reinforcement Learning",
+        authors: 'Wang and Ammanabrolu, 2025',
+        venue: 'arXiv 2510.01132',
+        link: 'https://arxiv.org/abs/2510.01132',
+      },
+      {
+        title: "Language Models Don't Always Say What They Think (Unfaithful CoT)",
+        authors: 'Turpin et al., 2023',
+        venue: 'arXiv 2305.04388',
+        link: 'https://arxiv.org/abs/2305.04388',
+      },
+    ],
+  },
+  {
+    part: 'Part 2',
+    title: 'Training Dynamics',
+    items: [
+      {
+        recommended: true,
+        title: 'RAGEN: Understanding Self-Evolution in LLM Agents via Multi-Turn RL',
+        authors: 'Wang et al., 2025',
+        venue: 'arXiv 2504.20073',
+        link: 'https://arxiv.org/abs/2504.20073',
+      },
+      {
+        recommended: true,
+        title: 'RAGEN-2: Reasoning Collapse in Agentic RL',
+        authors: 'Wang et al., 2026',
+        venue: 'arXiv 2604.06268',
+        link: 'https://arxiv.org/abs/2604.06268',
+      },
+      {
+        title: 'The Entropy Mechanism of RL for Reasoning Language Models',
+        authors: 'Cui et al., 2025',
+        venue: 'arXiv 2505.22617',
+        link: 'https://arxiv.org/abs/2505.22617',
+      },
+      {
+        title: 'KL-Regularized Reinforcement Learning is Designed to Mode Collapse',
+        authors: 'GX-Chen et al., 2025',
+        venue: 'arXiv 2510.20817',
+        link: 'https://arxiv.org/abs/2510.20817',
+      },
+      {
+        title: 'Confronting Reward Model Overoptimization with Constrained RLHF',
+        authors: 'Moskovitz et al., 2023',
+        venue: 'arXiv 2310.04373',
+        link: 'https://arxiv.org/abs/2310.04373',
+      },
+      {
+        title: 'Understanding the Effects of RLHF on LLM Generalisation and Diversity',
+        authors: 'Kirk et al., 2024',
+        venue: 'arXiv 2310.06452',
+        link: 'https://arxiv.org/abs/2310.06452',
+      },
+      {
+        title: 'DAPO: An Open-Source LLM Reinforcement Learning System at Scale',
+        authors: 'Yu et al., 2025',
+        venue: 'arXiv 2503.14476',
+        link: 'https://arxiv.org/abs/2503.14476',
+      },
+      {
+        title: 'Stabilizing Reinforcement Learning with LLMs: Formulation and Practices',
+        authors: 'Zheng et al., 2025',
+        venue: 'arXiv 2512.01374',
+        link: 'https://arxiv.org/abs/2512.01374',
+      },
+      {
+        title: 'ARLArena: A Unified Framework for Stable Agentic RL',
+        authors: 'Wang et al., 2026',
+        venue: 'arXiv 2602.21534',
+        link: 'https://arxiv.org/abs/2602.21534',
+      },
+      {
+        title: 'RL Grokking Recipe: When RL Unlocks New Algorithms in LLMs',
+        authors: 'Sun et al., 2025',
+        venue: 'arXiv 2509.21016',
+        link: 'https://arxiv.org/abs/2509.21016',
+      },
+    ],
+  },
+  {
+    part: 'Part 3',
+    title: 'Evaluation and Trace Diagnostics',
+    items: [
+      {
+        recommended: true,
+        title: 'An Illusion of Progress? Assessing the Current State of Web Agents',
+        authors: 'Xue et al., 2025',
+        venue: 'arXiv 2504.01382',
+        link: 'https://arxiv.org/abs/2504.01382',
+      },
+      {
+        title: 'ARE: Scaling Up Agent Environments and Evaluations',
+        authors: 'Meta Superintelligence Labs, 2025',
+        venue: 'GitHub release',
+        link: 'https://github.com/facebookresearch/meta-agents-research-environments',
+      },
+      {
+        title: 'SOTOPIA: Interactive Evaluation for Social Intelligence in Language Agents',
+        authors: 'Zhou et al., 2023',
+        venue: 'arXiv 2310.11667',
+        link: 'https://arxiv.org/abs/2310.11667',
+      },
+      {
+        title: 'CheckList: Beyond Accuracy, Behavioral Testing of NLP Models',
+        authors: 'Ribeiro et al., 2020',
+        venue: 'arXiv 2005.04118',
+        link: 'https://arxiv.org/abs/2005.04118',
+      },
+      {
+        title: 'SyncMind: Measuring Agent Out-of-Sync Recovery in Collaborative SWE',
+        authors: 'Guo et al., 2025',
+        venue: 'ICML 2025',
+        link: 'https://arxiv.org/abs/2502.06994',
+      },
+      {
+        title: 'The Law of Knowledge Overshadowing in LLM Hallucination',
+        authors: 'Zhang et al., 2025',
+        venue: 'Findings of ACL 2025',
+        link: 'https://aclanthology.org/2025.findings-acl.1199/',
+      },
+      {
+        title: 'AvaTaR: Optimizing LLM Agents for Tool Usage via Contrastive Reasoning',
+        authors: 'Wu et al., 2024',
+        venue: 'NeurIPS 2024',
+        link: 'https://arxiv.org/abs/2406.11200',
+      },
+    ],
+  },
+  {
+    part: 'Part 4',
+    title: 'Test-Time Scaling, Adaptation, and Safety',
+    items: [
+      {
+        recommended: true,
+        title: 'BAGEN: Are LLM Agents Budget-Aware?',
+        authors: 'Lin et al., 2026',
+        venue: 'Preprint',
+        link: 'https://ragen-ai.github.io/bagen/',
+      },
+      {
+        title: 'T2PO: Uncertainty-Guided Exploration Control for Multi-Turn Agent RL',
+        authors: 'Wang et al., 2026',
+        venue: 'ICML 2026 Spotlight',
+        link: 'https://arxiv.org/abs/2605.02178',
+      },
+      {
+        title: 'The Illusion of Thinking: Reasoning Models via Problem Complexity',
+        authors: 'Shojaee et al., 2025',
+        venue: 'arXiv 2506.06941',
+        link: 'https://arxiv.org/abs/2506.06941',
+      },
+      {
+        title: "Reasoning's Razor: Accuracy vs Recall at Safety-Critical Points",
+        authors: 'Chegini et al., 2025',
+        venue: 'arXiv 2510.21049',
+        link: 'https://arxiv.org/abs/2510.21049',
+      },
+      {
+        title: 'Diversity-Aware Policy Optimization for LLM Reasoning',
+        authors: 'Yao et al., 2025',
+        venue: 'arXiv 2505.23433',
+        link: 'https://arxiv.org/abs/2505.23433',
+      },
+      {
+        title: 'The Price of Format: Diversity Collapse in LLMs',
+        authors: 'Yun et al., 2025',
+        venue: 'arXiv 2505.18949',
+        link: 'https://arxiv.org/abs/2505.18949',
+      },
+      {
+        title: 'ShieldAgent: Verifiable Safety Policy Reasoning for Agents',
+        authors: 'Yang et al., 2025',
+        venue: 'arXiv 2505.10089',
+        link: 'https://arxiv.org/abs/2505.10089',
+      },
+      {
+        recommended: true,
+        title: 'DR Tulu: RL with Evolving Rubrics for Deep Research',
+        authors: 'Shao et al., 2025',
+        venue: 'arXiv 2511.19399',
+        link: 'https://arxiv.org/abs/2511.19399',
+      },
+    ],
+  },
+];
+---
+<section id="reading" class="content-section">
+  <div class="section-container">
+    <h2 class="section-title">Reading List</h2>
+
+    {sections.map((s) => (
+      <div class="reading-block">
+        <div class="reading-block-head">
+          <span class="block-tag">{s.part}</span>
+          <h3 class="block-title">{s.title}</h3>
+        </div>
+        <ul class="reading-items">
+          {s.items.map((it) => (
+            <li class="reading-item">
+              <div class="ri-top">
+                {it.recommended && <span class="rec-star" title="Recommended pre-tutorial reading">&#9733;</span>}
+                <a href={it.link} target="_blank" rel="noopener" class="ri-title">{it.title}</a>
+              </div>
+              <div class="ri-meta">
+                <span class="ri-authors">{it.authors}</span>
+                <span class="ri-venue">{it.venue}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  #reading { background: #f8f9fa; padding: 4rem 1rem; }
+
+  .section-container { max-width: var(--page-max-width, 1100px); margin: 0 auto; }
+
+  .section-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #2a2f6c;
+    text-align: center;
+    margin-bottom: 2.2rem;
+  }
+
+  .reading-block {
+    background: white;
+    border: 1px solid #e6e8ef;
+    border-radius: 14px;
+    margin-bottom: 1.4rem;
+    overflow: hidden;
+  }
+
+  .reading-block-head {
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid #f0f1f5;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .block-tag {
+    background: #2a2f6c;
+    color: white;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+
+  .block-title {
+    font-size: 1.15rem;
+    color: #2a2f6c;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .reading-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .reading-item {
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid #f5f6fa;
+  }
+
+  .reading-item:last-child { border-bottom: none; }
+
+  .ri-top {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .rec-star {
+    color: #d99700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+
+  .ri-title {
+    color: #2a2f6c;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  .ri-title:hover { color: #4a56c9; text-decoration: underline; }
+
+  .ri-meta {
+    font-size: 0.85rem;
+    color: #6b6b6b;
+    margin-bottom: 0.3rem;
+  }
+
+  .ri-authors { font-weight: 500; }
+
+  .ri-authors::after {
+    content: '·';
+    margin: 0 0.5rem;
+    color: #c4c4c4;
+  }
+
+  .ri-venue {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    color: #888;
+  }
+
+  @media (max-width: 700px) {
+    .section-title { font-size: 1.9rem; }
+    .reading-block-head { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  }
+</style>
