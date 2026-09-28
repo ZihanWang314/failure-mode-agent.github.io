@@ -5,15 +5,15 @@
 const speakers = [
   {
     name: 'Zoey Sha Li',
-    role: 'Applied Scientist, Amazon',
+    role: 'Amazon',
     part: 'Part 2',
-    photo: '',
-    site: '',
+    photo: '/speakers/zoey-sha-li.jpg',
+    site: 'https://zoeyli.com',
     email: '',
   },
   {
     name: 'Zihan Wang',
-    role: 'Ph.D. Student, Northwestern University',
+    role: 'Northwestern University',
     part: 'Part 3',
     photo: '/speakers/zihan-wang.png',
     site: 'https://zihanwang314.github.io/',
@@ -21,15 +21,15 @@ const speakers = [
   },
   {
     name: 'Hejie Cui',
-    role: 'Senior Research Scientist, Google',
+    role: 'Google',
     part: 'Part 4',
     photo: '/speakers/hejie-cui.jpg',
-    site: '',
+    site: 'https://hejiecui.com',
     email: '',
   },
   {
     name: 'Manling Li',
-    role: 'Assistant Professor, Northwestern University; Amazon Scholar',
+    role: 'Northwestern University',
     part: 'Part 1',
     photo: '/speakers/manling-li.jpg',
     site: 'https://limanling.github.io/',
@@ -49,9 +49,12 @@ const speakers = [
               ? <img class="photo" src={s.photo} alt={s.name} />
               : <div class="photo placeholder" aria-hidden="true">{s.name.split(' ').map((p) => p[0]).join('').slice(0, 2)}</div>}
           </div>
-          <h3 class="sp-name">
-            {s.site ? <a href={s.site} target="_blank" rel="noopener">{s.name}</a> : s.name}
-          </h3>
+          <div class="sp-info">
+            <h3 class="sp-name">
+              {s.site ? <a href={s.site} target="_blank" rel="noopener">{s.name}</a> : s.name}
+            </h3>
+            <p class="sp-role">{s.role}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -94,8 +97,11 @@ const speakers = [
   }
 
   .photo-wrap {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    width: 150px;
+    height: 150px;
+    margin: 1.6rem auto 0.3rem;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   .photo {
@@ -111,20 +117,30 @@ const speakers = [
     justify-content: center;
     background: linear-gradient(135deg, #2a2f6c, #4a56c9);
     color: white;
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.05em;
   }
 
-  .sp-name {
+  .sp-info {
     text-align: center;
-    padding: 0.95rem 0.8rem 1.1rem;
+    padding: 0.95rem 0.9rem 1.2rem;
+  }
+
+  .sp-name {
     font-size: 1.15rem;
     font-weight: 700;
     color: #2a2f6c;
+    margin-bottom: 0.3rem;
   }
   .sp-name a { color: #2a2f6c; text-decoration: none; }
-  .sp-name a:hover { color: #4a56c9; }
+  .sp-name a:hover { color: #4a56c9; text-decoration: underline; }
+
+  .sp-role {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.45;
+  }
 
   @media (max-width: 600px) {
     .section-title { font-size: 1.9rem; }
