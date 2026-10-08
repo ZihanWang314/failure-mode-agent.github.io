@@ -1,5 +1,10 @@
 ---
 // Hero / banner. Tutorial title, venue, date, and quick links.
+
+// Set to the slides URL once they are posted; the Slides button then becomes
+// an active primary link instead of a disabled "Coming soon" placeholder.
+const slidesUrl = '';
+const SlidesTag = slidesUrl ? 'a' : 'span';
 ---
 <section id="hero" class="content-section hero-section">
   <span class="venue-badge">
@@ -8,16 +13,10 @@
   </span>
 
   <h1 class="main-title" id="animated-title">Failure Modes in Agentic AI</h1>
-  <p class="subtitle" id="animated-subtitle">Reproducible Triggers, Trace Diagnostics, and Verified Fixes</p>
+  <p class="subtitle" id="animated-subtitle">From Reproducible Triggers and Diagnostics to Reliable Fixes</p>
 
   <div class="resources-section">
     <div class="resources-buttons">
-      <a href="#abstract" class="resource-button primary">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
-          <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
-        </svg>
-        <span>What you will learn</span>
-      </a>
       <a href="#schedule" class="resource-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -26,6 +25,21 @@
         </svg>
         <span>Schedule</span>
       </a>
+      <SlidesTag
+        href={slidesUrl || undefined}
+        target={slidesUrl ? '_blank' : undefined}
+        rel={slidesUrl ? 'noopener' : undefined}
+        class:list={['resource-button', slidesUrl ? 'primary' : 'is-disabled']}
+        aria-disabled={slidesUrl ? undefined : 'true'}
+        title={slidesUrl ? undefined : 'Slides will be posted closer to the tutorial'}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        <span>Slides</span>
+        {!slidesUrl && <span class="soon-tag">Coming soon</span>}
+      </SlidesTag>
       <a href="#speakers" class="resource-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -35,7 +49,7 @@
         </svg>
         <span>Presenters</span>
       </a>
-      <a href="mailto:zihanw@u.northwestern.edu,manling.li@northwestern.edu" class="resource-button">
+      <a href="mailto:mail@zoeyli.com,zihanw@u.northwestern.edu,manling.li@northwestern.edu" class="resource-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
@@ -162,6 +176,31 @@
   .resource-button.primary:hover {
     background-color: #1f2358;
     border-color: #1f2358;
+  }
+
+  .resource-button.is-disabled {
+    background-color: #f6f7fb;
+    color: #8a8fb3;
+    border-style: dashed;
+    border-color: #d5d8e6;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  .resource-button.is-disabled:hover {
+    background-color: #f6f7fb;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .soon-tag {
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    background: #e9ebf5;
+    color: #6b70a0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
 
   .resource-icon {

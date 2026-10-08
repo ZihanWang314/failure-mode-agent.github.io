@@ -1,12 +1,13 @@
 ---
-// Time-budgeted schedule for a 3-hour tutorial slot (3.5 h with break).
+// Time-budgeted schedule for the 3.5-hour slot (about 3 hours of content plus a break).
 const rows = [
-  { time: '0:00 - 0:35', session: 'Part 1: Agent Environments and Infrastructure', detail: 'Agent loop anatomy, canonical scaffolds, a taxonomy of failure surfaces, and what a reproducible trigger looks like.', who: 'Manling Li' },
-  { time: '0:35 - 1:25', session: 'Part 2: Training Dynamics', detail: 'Reward design and hacking, optimization-induced collapse, and stabilization recipes. Safety: reward hacking under constraints.', who: 'Zoey Sha Li' },
-  { time: '1:25 - 1:55', session: 'Coffee break', detail: '', who: '', isBreak: true },
-  { time: '1:55 - 2:40', session: 'Part 3: Evaluation and Trace Diagnostics', detail: 'Why static benchmarks miss failures, closed-loop and asynchronous evaluation, and trace-level diagnostics. Safety: attack-surface evaluation.', who: 'Zihan Wang' },
-  { time: '2:40 - 3:15', session: 'Part 4: Test-Time Scaling and Adaptation', detail: 'When more inference hurts, budget-aware agents, exploration control, and context management. Safety: guardrails under long interaction.', who: 'Hejie Cui' },
-  { time: '3:15 - 3:30', session: 'Synthesis and Q&A', detail: 'Discussion across the four axes; release of reproductions and trace examples.', who: 'All presenters' },
+  { time: '0:00 - 0:10', session: 'Part 1: The Development Loop of AI Agents', detail: 'What an agent is and how one is built: the closed agent loop, the current agent landscape, and a build lifecycle that maps onto Parts 2 to 5.', who: 'All presenters' },
+  { time: '0:10 - 0:50', session: 'Part 2: Agent Environments and Infrastructure', detail: 'Token misattribution, gradient spikes from low-probability tool tokens, and mis-scored overlong trajectories, with masking and importance-sampling fixes. Safety: the harness as an attack surface.', who: 'Zoey Sha Li' },
+  { time: '0:50 - 1:30', session: 'Part 3: Training Dynamics', detail: 'Collapse under verifiable rewards, reward hacking under learned rewards, and the zero-gradient barrier on tasks too hard to learn from. Safety: reward hacking under safety constraints.', who: 'Zihan Wang' },
+  { time: '1:30 - 2:00', session: 'Coffee break', detail: '', who: '', isBreak: true },
+  { time: '2:00 - 2:40', session: 'Part 4: Evaluation and Red Teaming', detail: 'Where static benchmarks break, closed-loop and contamination-resistant evaluation, and red teaming of agent attack surfaces.', who: 'Manling Li' },
+  { time: '2:40 - 3:20', session: 'Part 5: Test-Time Scaling and Adaptation', detail: 'When more inference compute stops helping, and how agent memory and self-authored skills degrade. Safety: memory poisoning and guardrail decay.', who: 'Hejie Cui' },
+  { time: '3:20 - 3:30', session: 'Synthesis and Q&A', detail: 'Which fixes transfer, which are domain-specific, and what diagnostic infrastructure the community needs most; release of reproductions and trace examples.', who: 'All presenters' },
 ];
 ---
 <section id="schedule" class="content-section">
@@ -40,7 +41,7 @@ const rows = [
 </section>
 
 <style>
-  #schedule { background: white; padding: 4rem 1rem; }
+  #schedule { background: #f8f9fa; padding: 4rem 1rem; }
 
   .section-container { max-width: var(--page-max-width, 1100px); margin: 0 auto; }
 

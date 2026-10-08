@@ -1,11 +1,14 @@
 ---
-// Reading list, organized by tutorial part. Mirrors custom.bib.
-// Items marked * are recommended pre-tutorial reading.
+// Reading list, organized by tutorial part. Parts 2 to 5 mirror the
+// proposal's reading list (custom.bib); Part 1 comes from the proposal's
+// annotated table. Items marked * are recommended pre-tutorial reading.
+// `label` is the short name the tutorial uses for a paper whose title does
+// not contain it (e.g. VeRL for HybridFlow).
 
 const sections = [
   {
     part: 'Part 1',
-    title: 'Agent Environments and Infrastructure',
+    title: 'The Development Loop of AI Agents',
     items: [
       {
         recommended: true,
@@ -15,58 +18,126 @@ const sections = [
         link: 'https://arxiv.org/abs/2210.03629',
       },
       {
+        recommended: true,
         title: 'Reflexion: Language Agents with Verbal Reinforcement Learning',
         authors: 'Shinn et al., 2023',
         venue: 'arXiv 2303.11366',
         link: 'https://arxiv.org/abs/2303.11366',
       },
       {
-        title: 'Voyager: An Open-Ended Embodied Agent with Large Language Models',
-        authors: 'Wang et al., 2023',
-        venue: 'arXiv 2305.16291',
-        link: 'https://arxiv.org/abs/2305.16291',
+        label: 'CodeAct',
+        title: 'Executable Code Actions Elicit Better LLM Agents',
+        authors: 'Wang et al., 2024',
+        venue: 'arXiv 2402.01030',
+        link: 'https://arxiv.org/abs/2402.01030',
       },
       {
-        title: 'WebGPT: Browser-Assisted Question-Answering with Human Feedback',
-        authors: 'Nakano et al., 2022',
-        venue: 'arXiv 2112.09332',
-        link: 'https://arxiv.org/abs/2112.09332',
+        title: 'OpenClaw: Your Own Personal AI Assistant',
+        authors: 'Steinberger, 2026',
+        venue: 'Website',
+        link: 'https://openclaw.ai/',
       },
       {
-        recommended: true,
-        title: "A Practitioner's Guide to Multi-Turn Agentic Reinforcement Learning",
-        authors: 'Wang and Ammanabrolu, 2025',
-        venue: 'arXiv 2510.01132',
-        link: 'https://arxiv.org/abs/2510.01132',
+        title: 'Hermes Agent: The Agent That Grows With You',
+        authors: 'Nous Research, 2026',
+        venue: 'Website',
+        link: 'https://hermes-agent.nousresearch.com/',
       },
       {
-        title: "Language Models Don't Always Say What They Think (Unfaithful CoT)",
-        authors: 'Turpin et al., 2023',
-        venue: 'arXiv 2305.04388',
-        link: 'https://arxiv.org/abs/2305.04388',
+        title: 'π*0.6: A VLA That Learns From Experience',
+        authors: 'Physical Intelligence, 2025',
+        venue: 'arXiv 2511.14759',
+        link: 'https://arxiv.org/abs/2511.14759',
       },
     ],
   },
   {
     part: 'Part 2',
+    title: 'Agent Environments and Infrastructure',
+    items: [
+      {
+        label: 'VeRL',
+        title: 'HybridFlow: A Flexible and Efficient RLHF Framework',
+        authors: 'Sheng et al., 2024',
+        venue: 'arXiv 2409.19256',
+        link: 'https://arxiv.org/abs/2409.19256',
+      },
+      {
+        title: 'slime: An LLM Post-Training Framework for RL Scaling',
+        authors: 'THUDM, 2025',
+        venue: 'GitHub',
+        link: 'https://github.com/THUDM/slime',
+      },
+      {
+        title: 'SkyRL-Agent: Efficient RL Training for Multi-Turn LLM Agent',
+        authors: 'Cao et al., 2025',
+        venue: 'arXiv 2511.16108',
+        link: 'https://arxiv.org/abs/2511.16108',
+      },
+      {
+        title: 'AgentRL: Scaling Agentic Reinforcement Learning with a Multi-Turn, Multi-Task Framework',
+        authors: 'Zhang et al., 2025',
+        venue: 'arXiv 2510.04206',
+        link: 'https://arxiv.org/abs/2510.04206',
+      },
+      {
+        label: 'ASearcher',
+        title: 'Beyond Ten Turns: Unlocking Long-Horizon Agentic Search with Large-Scale Asynchronous RL',
+        authors: 'Gao et al., 2025',
+        venue: 'arXiv 2508.07976',
+        link: 'https://arxiv.org/abs/2508.07976',
+      },
+      {
+        title: 'Agent-World: Scaling Real-World Environment Synthesis for Evolving General Agent Intelligence',
+        authors: 'Dong et al., 2026',
+        venue: 'arXiv 2604.18292',
+        link: 'https://arxiv.org/abs/2604.18292',
+      },
+      {
+        title: 'SimpleTIR: End-to-End Reinforcement Learning for Multi-Turn Tool-Integrated Reasoning',
+        authors: 'Xue et al., 2025',
+        venue: 'arXiv 2509.02479',
+        link: 'https://arxiv.org/abs/2509.02479',
+      },
+      {
+        title: 'Stabilizing Reinforcement Learning with LLMs: Formulation and Practices',
+        authors: 'Zheng et al., 2025',
+        venue: 'arXiv 2512.01374',
+        link: 'https://arxiv.org/abs/2512.01374',
+      },
+      {
+        title: "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting",
+        authors: 'Turpin et al., 2023',
+        venue: 'arXiv 2305.04388',
+        link: 'https://arxiv.org/abs/2305.04388',
+      },
+      {
+        title: 'GuardAgent: Safeguard LLM Agents by a Guard Agent via Knowledge-Enabled Reasoning',
+        authors: 'Xiang et al., 2025',
+        venue: 'ICML 2025',
+        link: 'https://arxiv.org/abs/2406.09187',
+      },
+    ],
+  },
+  {
+    part: 'Part 3',
     title: 'Training Dynamics',
     items: [
       {
         recommended: true,
-        title: 'RAGEN: Understanding Self-Evolution in LLM Agents via Multi-Turn RL',
+        title: 'RAGEN: Understanding Self-Evolution in LLM Agents via Multi-Turn Reinforcement Learning',
         authors: 'Wang et al., 2025',
         venue: 'arXiv 2504.20073',
         link: 'https://arxiv.org/abs/2504.20073',
       },
       {
-        recommended: true,
         title: 'RAGEN-2: Reasoning Collapse in Agentic RL',
         authors: 'Wang et al., 2026',
         venue: 'arXiv 2604.06268',
         link: 'https://arxiv.org/abs/2604.06268',
       },
       {
-        title: 'The Entropy Mechanism of RL for Reasoning Language Models',
+        title: 'The Entropy Mechanism of Reinforcement Learning for Reasoning Language Models',
         authors: 'Cui et al., 2025',
         venue: 'arXiv 2505.22617',
         link: 'https://arxiv.org/abs/2505.22617',
@@ -76,6 +147,12 @@ const sections = [
         authors: 'GX-Chen et al., 2025',
         venue: 'arXiv 2510.20817',
         link: 'https://arxiv.org/abs/2510.20817',
+      },
+      {
+        title: 'The Price of Format: Diversity Collapse in LLMs',
+        authors: 'Yun et al., 2025',
+        venue: 'arXiv 2505.18949',
+        link: 'https://arxiv.org/abs/2505.18949',
       },
       {
         title: 'Confronting Reward Model Overoptimization with Constrained RLHF',
@@ -96,19 +173,45 @@ const sections = [
         link: 'https://arxiv.org/abs/2503.14476',
       },
       {
-        title: 'Stabilizing Reinforcement Learning with LLMs: Formulation and Practices',
-        authors: 'Zheng et al., 2025',
-        venue: 'arXiv 2512.01374',
-        link: 'https://arxiv.org/abs/2512.01374',
+        title: 'T²PO: Uncertainty-Guided Exploration Control for Stable Multi-Turn Agentic Reinforcement Learning',
+        authors: 'Wang et al., 2026',
+        venue: 'ICML 2026 Spotlight',
+        link: 'https://arxiv.org/abs/2605.02178',
       },
       {
-        title: 'ARLArena: A Unified Framework for Stable Agentic RL',
+        title: 'ARLArena: A Unified Framework for Stable Agentic Reinforcement Learning',
         authors: 'Wang et al., 2026',
         venue: 'arXiv 2602.21534',
         link: 'https://arxiv.org/abs/2602.21534',
       },
       {
-        title: 'RL Grokking Recipe: When RL Unlocks New Algorithms in LLMs',
+        title: 'Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?',
+        authors: 'Yue et al., 2025',
+        venue: 'arXiv 2504.13837',
+        link: 'https://arxiv.org/abs/2504.13837',
+      },
+      {
+        label: 'LUFFY',
+        title: 'Learning to Reason under Off-Policy Guidance',
+        authors: 'Yan et al., 2025',
+        venue: 'arXiv 2504.14945',
+        link: 'https://arxiv.org/abs/2504.14945',
+      },
+      {
+        title: 'POPE: Learning to Reason on Hard Problems via Privileged On-Policy Exploration',
+        authors: 'Qu et al., 2026',
+        venue: 'arXiv 2601.18779',
+        link: 'https://arxiv.org/abs/2601.18779',
+      },
+      {
+        label: 'NuRL',
+        title: 'Nudging the Boundaries of LLM Reasoning',
+        authors: 'Chen et al., 2025',
+        venue: 'arXiv 2509.25666',
+        link: 'https://arxiv.org/abs/2509.25666',
+      },
+      {
+        title: 'RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?',
         authors: 'Sun et al., 2025',
         venue: 'arXiv 2509.21016',
         link: 'https://arxiv.org/abs/2509.21016',
@@ -116,21 +219,40 @@ const sections = [
     ],
   },
   {
-    part: 'Part 3',
-    title: 'Evaluation and Trace Diagnostics',
+    part: 'Part 4',
+    title: 'Evaluation and Red Teaming',
     items: [
       {
-        recommended: true,
-        title: 'An Illusion of Progress? Assessing the Current State of Web Agents',
-        authors: 'Xue et al., 2025',
-        venue: 'arXiv 2504.01382',
-        link: 'https://arxiv.org/abs/2504.01382',
+        title: 'SWE-bench: Can Language Models Resolve Real-World GitHub Issues?',
+        authors: 'Jimenez et al., 2024',
+        venue: 'ICLR 2024',
+        link: 'https://arxiv.org/abs/2310.06770',
       },
       {
+        title: 'Proving Test Set Contamination in Black-Box Language Models',
+        authors: 'Oren et al., 2024',
+        venue: 'ICLR 2024',
+        link: 'https://arxiv.org/abs/2310.17623',
+      },
+      {
+        title: 'Harness-Bench: Measuring Harness Effects across Models in Realistic Agent Workflows',
+        authors: 'Yao et al., 2026',
+        venue: 'arXiv 2605.27922',
+        link: 'https://arxiv.org/abs/2605.27922',
+      },
+      {
+        recommended: true,
         title: 'ARE: Scaling Up Agent Environments and Evaluations',
-        authors: 'Meta Superintelligence Labs, 2025',
-        venue: 'GitHub release',
-        link: 'https://github.com/facebookresearch/meta-agents-research-environments',
+        authors: 'Froger et al., 2025',
+        venue: 'arXiv 2509.17158',
+        link: 'https://arxiv.org/abs/2509.17158',
+      },
+      {
+        label: 'Online-Mind2Web',
+        title: 'An Illusion of Progress? Assessing the Current State of Web Agents',
+        authors: 'Xue et al., 2025',
+        venue: 'COLM 2025',
+        link: 'https://arxiv.org/abs/2504.01382',
       },
       {
         title: 'SOTOPIA: Interactive Evaluation for Social Intelligence in Language Agents',
@@ -139,84 +261,114 @@ const sections = [
         link: 'https://arxiv.org/abs/2310.11667',
       },
       {
-        title: 'CheckList: Beyond Accuracy, Behavioral Testing of NLP Models',
-        authors: 'Ribeiro et al., 2020',
-        venue: 'arXiv 2005.04118',
-        link: 'https://arxiv.org/abs/2005.04118',
-      },
-      {
-        title: 'SyncMind: Measuring Agent Out-of-Sync Recovery in Collaborative SWE',
+        title: 'SyncMind: Measuring Agent Out-of-Sync Recovery in Collaborative Software Engineering',
         authors: 'Guo et al., 2025',
         venue: 'ICML 2025',
         link: 'https://arxiv.org/abs/2502.06994',
       },
       {
-        title: 'The Law of Knowledge Overshadowing in LLM Hallucination',
-        authors: 'Zhang et al., 2025',
-        venue: 'Findings of ACL 2025',
-        link: 'https://aclanthology.org/2025.findings-acl.1199/',
+        title: 'DR Tulu: Reinforcement Learning with Evolving Rubrics for Deep Research',
+        authors: 'Shao et al., 2026',
+        venue: 'ICML 2026',
+        link: 'https://arxiv.org/abs/2511.19399',
       },
       {
-        title: 'AvaTaR: Optimizing LLM Agents for Tool Usage via Contrastive Reasoning',
-        authors: 'Wu et al., 2024',
-        venue: 'NeurIPS 2024',
-        link: 'https://arxiv.org/abs/2406.11200',
+        title: 'Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents',
+        authors: 'Zhang et al., 2025',
+        venue: 'ICLR 2025',
+        link: 'https://arxiv.org/abs/2410.02644',
+      },
+      {
+        title: 'ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning',
+        authors: 'Chen et al., 2025',
+        venue: 'ICML 2025',
+        link: 'https://arxiv.org/abs/2503.22738',
       },
     ],
   },
   {
-    part: 'Part 4',
-    title: 'Test-Time Scaling, Adaptation, and Safety',
+    part: 'Part 5',
+    title: 'Test-Time Scaling and Adaptation',
     items: [
       {
-        recommended: true,
         title: 'BAGEN: Are LLM Agents Budget-Aware?',
         authors: 'Lin et al., 2026',
         venue: 'Preprint',
         link: 'https://ragen-ai.github.io/bagen/',
       },
       {
-        title: 'T2PO: Uncertainty-Guided Exploration Control for Multi-Turn Agent RL',
-        authors: 'Wang et al., 2026',
-        venue: 'ICML 2026 Spotlight',
-        link: 'https://arxiv.org/abs/2605.02178',
+        label: 'SWAP',
+        title: 'Stepwise Penalization for Length-Efficient Chain-of-Thought Reasoning',
+        authors: 'Li et al., 2026',
+        venue: 'arXiv 2603.00296',
+        link: 'https://arxiv.org/abs/2603.00296',
       },
       {
-        title: 'The Illusion of Thinking: Reasoning Models via Problem Complexity',
-        authors: 'Shojaee et al., 2025',
-        venue: 'arXiv 2506.06941',
-        link: 'https://arxiv.org/abs/2506.06941',
+        title: 'Reasoning Cache: Continual Improvement Over Long Horizons via Short-Horizon RL',
+        authors: 'Wu et al., 2026',
+        venue: 'arXiv 2602.03773',
+        link: 'https://arxiv.org/abs/2602.03773',
       },
       {
-        title: "Reasoning's Razor: Accuracy vs Recall at Safety-Critical Points",
-        authors: 'Chegini et al., 2025',
-        venue: 'arXiv 2510.21049',
-        link: 'https://arxiv.org/abs/2510.21049',
+        title: 'Free(): Learning to Forget in Malloc-Only Reasoning Models',
+        authors: 'Zheng et al., 2026',
+        venue: 'arXiv 2602.08030',
+        link: 'https://arxiv.org/abs/2602.08030',
       },
       {
-        title: 'Diversity-Aware Policy Optimization for LLM Reasoning',
-        authors: 'Yao et al., 2025',
-        venue: 'arXiv 2505.23433',
-        link: 'https://arxiv.org/abs/2505.23433',
+        title: 'CoMem: Context Management with A Decoupled Long-Context Model',
+        authors: 'Zhang et al., 2026',
+        venue: 'ICML 2026',
+        link: 'https://arxiv.org/abs/2605.30842',
       },
       {
-        title: 'The Price of Format: Diversity Collapse in LLMs',
-        authors: 'Yun et al., 2025',
-        venue: 'arXiv 2505.18949',
-        link: 'https://arxiv.org/abs/2505.18949',
+        title: 'MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents',
+        authors: 'Zhou et al., 2025',
+        venue: 'arXiv 2506.15841',
+        link: 'https://arxiv.org/abs/2506.15841',
       },
       {
-        title: 'ShieldAgent: Verifiable Safety Policy Reasoning for Agents',
-        authors: 'Yang et al., 2025',
-        venue: 'arXiv 2505.10089',
-        link: 'https://arxiv.org/abs/2505.10089',
+        title: 'Mem0: Building Production-Ready AI Agents with Scalable Long-Term Memory',
+        authors: 'Chhikara et al., 2025',
+        venue: 'arXiv 2504.19413',
+        link: 'https://arxiv.org/abs/2504.19413',
       },
       {
-        recommended: true,
-        title: 'DR Tulu: RL with Evolving Rubrics for Deep Research',
-        authors: 'Shao et al., 2025',
-        venue: 'arXiv 2511.19399',
-        link: 'https://arxiv.org/abs/2511.19399',
+        label: 'AWM',
+        title: 'Agent Workflow Memory',
+        authors: 'Wang et al., 2025',
+        venue: 'ICML 2025',
+        link: 'https://arxiv.org/abs/2409.07429',
+      },
+      {
+        title: 'Scaling Long-Horizon LLM Agent via Context-Folding',
+        authors: 'Sun et al., 2025',
+        venue: 'arXiv 2510.11967',
+        link: 'https://arxiv.org/abs/2510.11967',
+      },
+      {
+        title: 'Memory OS of AI Agent',
+        authors: 'Kang et al., 2025',
+        venue: 'EMNLP 2025',
+        link: 'https://aclanthology.org/2025.emnlp-main.1318/',
+      },
+      {
+        title: 'AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases',
+        authors: 'Chen et al., 2024',
+        venue: 'NeurIPS 2024',
+        link: 'https://arxiv.org/abs/2407.12784',
+      },
+      {
+        title: 'Large Language Models as Tool Makers',
+        authors: 'Cai et al., 2024',
+        venue: 'ICLR 2024',
+        link: 'https://arxiv.org/abs/2305.17126',
+      },
+      {
+        title: 'Voyager: An Open-Ended Embodied Agent with Large Language Models',
+        authors: 'Wang et al., 2023',
+        venue: 'arXiv 2305.16291',
+        link: 'https://arxiv.org/abs/2305.16291',
       },
     ],
   },
@@ -237,6 +389,7 @@ const sections = [
             <li class="reading-item">
               <div class="ri-top">
                 {it.recommended && <span class="rec-star" title="Recommended pre-tutorial reading">&#9733;</span>}
+                {it.label && <span class="ri-label">{it.label}</span>}
                 <a href={it.link} target="_blank" rel="noopener" class="ri-title">{it.title}</a>
               </div>
               <div class="ri-meta">
@@ -323,6 +476,16 @@ const sections = [
     color: #d99700;
     font-size: 0.95rem;
     flex-shrink: 0;
+  }
+
+  .ri-label {
+    flex-shrink: 0;
+    background: #f0f1f8;
+    color: #2a2f6c;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.12rem 0.5rem;
+    border-radius: 999px;
   }
 
   .ri-title {

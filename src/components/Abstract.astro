@@ -6,11 +6,19 @@
     <h2 class="section-title">Abstract</h2>
 
     <p class="lead">
-      Foundation-model agents now run in search, browsing, coding, and embodied settings, where quality
-      hinges on <strong>long-horizon interaction</strong>: small errors compound across tool calls and memory,
-      and single-turn evaluation misses them. This tutorial gives an operational view of agent failure modes,
-      how to <strong>trigger</strong> them reproducibly, <strong>diagnose</strong> them from traces, and
-      <strong>verify</strong> that fixes hold.
+      Foundation-model agents are being deployed faster than the community can characterize how they fail.
+      In barely two years they have moved into browsing, software engineering, scientific discovery, and
+      embodied control, where reliability is governed by <strong>long-horizon, closed-loop interaction</strong>
+      that single-turn evaluation rarely captures. Failures already reaching users (error cascades, reward
+      hacking, mode and reasoning collapse, memory drift, and over-reasoning loops) still lack a shared
+      vocabulary, reproducible triggers, and comparable diagnostics.
+    </p>
+    <p class="lead">
+      This tutorial gives a systematic, mechanism-first account of agentic failure modes across four axes:
+      environments and infrastructure, training dynamics, evaluation and red teaming, and test-time scaling
+      and adaptation, with safety threaded throughout. Attendees leave with
+      <strong>reproducible triggers</strong>, <strong>comparable diagnostic protocols</strong>, and
+      <strong>verifiable mitigations</strong>.
     </p>
   </div>
 </section>

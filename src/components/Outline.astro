@@ -1,120 +1,194 @@
 ---
-// The 4-part tutorial outline. Each part lists representative failure patterns,
-// the diagnostics used to surface them, and the fixes covered in the part.
-// Safety is threaded through Parts 2 to 4 rather than being a standalone part.
+// The 5-part tutorial outline, following the EMNLP 2026 proposal. Part 1 sets
+// up the agent development loop; Parts 2 to 5 each follow the same arc: failure
+// patterns, diagnostics, fixes, and (where the proposal lists them) open
+// challenges. Safety is threaded throughout rather than being a standalone part.
+
+// Column layout for Parts 2 to 5.
+const ARC = [
+  { key: 'failures', label: 'Failure patterns', cls: 'col-fail' },
+  { key: 'diagnostics', label: 'Diagnostics', cls: 'col-diag' },
+  { key: 'fixes', label: 'Fixes', cls: 'col-fix' },
+];
 
 const parts = [
   {
     n: 'Part 1',
-    title: 'Agent Environments and Infrastructure',
-    minutes: 35,
-    failures: [
-      'Brittle tool use under interface shifts',
-      'Unstable memory over long episodes',
-      'Unfaithful chain-of-thought traces',
-    ],
-    diagnostics: [
-      'Trajectory schemas for actions, tools, and memory',
-      'Minimal closed-loop scaffolds as test stands',
-      'Process metrics beyond terminal success',
-    ],
-    fixes: [
-      'Tool and memory interface contracts',
-      'Standardized logging and trace tooling',
-      'Runnable baselines others can replay',
+    title: 'The Development Loop of AI Agents',
+    minutes: 10,
+    lead: 'All presenters',
+    summary:
+      'An agent is not a single LLM call but a closed loop: it perceives, plans, acts through tools, and observes over many steps while persisting state in memory. We survey the landscape and lay out a build lifecycle that maps onto the rest of the tutorial.',
+    columns: [
+      {
+        label: 'Agent landscape',
+        cls: 'col-info',
+        items: [
+          'Open-source personal assistants (OpenClaw, Hermes Agent)',
+          'Coding agents (Devin, Claude Code)',
+          'Browser and computer-use agents (OpenAI Operator, ChatGPT Agent, Claude Computer Use)',
+          'Deep-research agents (DR Tulu)',
+          'Embodied agents (π*0.6)',
+        ],
+      },
+      {
+        label: 'Build lifecycle',
+        cls: 'col-info',
+        items: [
+          'Scaffold and tools for multi-turn trajectories (Part 2)',
+          'Post-training with SFT and RL (Part 3)',
+          'Evaluation and red teaming beyond single-turn benchmarks (Part 4)',
+          'Memory, skills, and test-time adaptation (Part 5)',
+        ],
+      },
     ],
   },
   {
     n: 'Part 2',
-    title: 'Training Dynamics',
-    minutes: 50,
+    title: 'Agent Environments and Infrastructure',
+    minutes: 40,
+    lead: 'Zoey Sha Li',
+    summary:
+      'Multi-turn interaction and tool use define the agent trajectory: model-generated actions interleaved with environment-generated observations. Standard RL frameworks treat a rollout as a single forward pass, so multi-turn agents need an orchestration layer to run rollouts, dispatch tools, and manage sandboxes.',
     failures: [
-      'Echo Trap: reasoning decays into templates',
-      'Entropy and mode collapse under KL',
-      'Reward hacking and overoptimization',
+      'Token misattribution: environment and tool tokens leak into the loss, or re-tokenization at turn boundaries misaligns the loss mask and cached log-probs',
+      'Low-probability tool tokens trigger gradient-norm spikes that precede reward collapse',
+      'Overlong and timed-out trajectories wrongly scored as task failures',
     ],
     diagnostics: [
-      'Reward variance, entropy, gradient norms',
-      'Mutual-information and SNR-aware filtering',
-      'Policy-gradient decomposition for instability',
+      'Early warnings before collapse: falling reward standard deviation and gradient-norm spikes',
+      'Mask-alignment and log-prob consistency checks for re-tokenization drift',
+      'Per-turn inspection to locate void or unproductive turns',
     ],
     fixes: [
-      'Variance-aware trajectory filtering',
-      'KL choices that preserve diversity',
-      'Large-scale recipes like DAPO',
+      'Mask environment and tool tokens so the policy trains only on what it controls',
+      'Token-in-token-out trajectories with importance-sampling correction for training-inference and off-policy mismatch',
+      'Filter void turns (SimpleTIR); mask rather than penalize overlong rollouts (DAPO)',
+    ],
+    challenges: [
+      'Composable, transferable environment abstractions',
+      'Automatic synthesis of real-world environments at scale (Agent-World)',
+      'The harness as a safety surface once agents read untrusted observations and call external tools (GuardAgent)',
     ],
   },
   {
     n: 'Part 3',
-    title: 'Evaluation and Trace Diagnostics',
-    minutes: 45,
+    title: 'Training Dynamics',
+    minutes: 40,
+    lead: 'Zihan Wang',
+    summary:
+      'Three failures of RL training: collapse under verifiable rewards, where the policy prematurely converges to a narrow set of behaviors; reward hacking under learned rewards, where it exploits an imperfect proxy; and the zero-gradient barrier, where no rollout succeeds and there is nothing to reinforce.',
     failures: [
-      'Benchmark gains that vanish in deployment',
-      'Hallucination and knowledge overshadowing',
-      'Out-of-sync recovery failures',
+      'Collapse under verifiable rewards: entropy, KL mode, Echo Trap, format, and reasoning collapse, each invisible to the previous diagnostic',
+      'Reward hacking under learned rewards: reward-model overoptimization and RLHF-induced diversity loss',
+      'Zero-gradient barrier: the task is too hard, the pass rate is zero, and policy gradients have nothing to reinforce',
     ],
     diagnostics: [
-      'Process-level, behavioral testing',
-      'Contrastive and counterfactual evaluation',
-      'Asynchronous, adversarial environments',
+      'Collapse-aware proxies that flag collapse before reward drops (RAGEN-2)',
+      'A widening proxy vs true reward gap; behavioral probes that catch exploits reward curves miss',
+      'Zero within-group reward variance; pass@1 vs pass@k divergence',
     ],
     fixes: [
-      'Standardized trace logging and reproductions',
-      'Conflict-aware reviewing and meta-eval hygiene',
-      'Comparable protocols across papers',
+      'Entropy-preserving clipping (DAPO) and uncertainty-guided exploration control (T²PO)',
+      'Constrained RLHF objectives that contain overoptimization',
+      'External signal with decreasing teacher information: off-policy traces (LUFFY), prefix-guided exploration (POPE), abstract hints (NuRL), staged dense-to-binary rewards',
     ],
   },
   {
     n: 'Part 4',
-    title: 'Test-Time Scaling and Adaptation',
-    minutes: 35,
+    title: 'Evaluation and Red Teaming',
+    minutes: 40,
+    lead: 'Manling Li',
+    summary:
+      'Leaderboard scores routinely fail to measure what we think. We show where static benchmarks break, how closed-loop evaluation restores signal, and how red teaming probes the attack surfaces flagged in Parts 2, 3, and 5.',
     failures: [
-      'Budget unawareness: overspent tokens and calls',
-      'Uncontrolled exploration in rollouts',
-      'Diversity collapse from format constraints',
+      'Contamination: test instances leak into training, so the score reflects recall',
+      'Saturation: a benchmark stops discriminating as models reach its ceiling (SWE-bench)',
+      'Construct invalidity: the benchmark does not isolate the intended ability',
+      'Harness variance: the same backbone scores differently across scaffolds and tools',
+      'Attack surfaces: prompt injection, reward hacking under safety constraints, memory poisoning',
     ],
     diagnostics: [
-      'Cost-aware trace analysis (BAGEN)',
-      'Uncertainty-guided exploration control (T2PO)',
-      'Diversity-aware optimization and format audits',
+      'Black-box tests for test-set contamination',
+      'Harness-controlled comparisons of one backbone across scaffolds (Harness-Bench)',
+      'The attack surface as a measurable axis under adversarial inputs (Agent Security Bench)',
     ],
     fixes: [
-      'Context management with long-context models',
-      'Inference scaffolds with recovery and abstention',
-      'Evolving rubrics for long-form tasks',
+      'Dynamic, live, and asynchronous evaluation that resists memorization and restores headroom (ARE/Gaia2, Online-Mind2Web)',
+      'Social, embodied, and out-of-sync recovery evaluation (SOTOPIA, SyncMind)',
+      'Verifiable safety-policy reasoning as a runtime defense (ShieldAgent)',
+    ],
+  },
+  {
+    n: 'Part 5',
+    title: 'Test-Time Scaling and Adaptation',
+    minutes: 40,
+    lead: 'Hejie Cui',
+    summary:
+      'Two failures of deployment-time improvement: test-time scaling, where more inference compute stops helping, and memory and skills, where the state an agent accumulates degrades rather than aids it.',
+    failures: [
+      'Inverse-U test-time scaling: accuracy peaks, then degrades into over-reasoning loops, self-doubt loops, and reasoning collapse at long horizons',
+      'Memory failures by tier: context saturation, drift as facts grow stale, and poisoning that turns the store into an attack vector',
+      'Skill failures in self-authored, cached skills: generation errors, overgeneralization, and a verification gap',
+    ],
+    diagnostics: [
+      'Accuracy vs token-budget and accuracy vs turn curves that expose the peak',
+      'Compression ratio paired with information-retention and functional-equivalence probes',
+      'Retrieval precision and recall',
+    ],
+    fixes: [
+      'Budget-aware early stopping (BAGEN) and stepwise length penalties (SWAP)',
+      'Compaction-adapted reasoning (Reasoning Cache, Free())',
+      'Learned compaction (MEM1) and memory-as-tool stores for facts and skill workflows (Mem0, AWM)',
+      'Sub-agent delegation (Context-Folding) and decoupled asynchronous compression (CoMem)',
+    ],
+    challenges: [
+      'When to trigger compression',
+      'Adversarial robustness of memory to poisoned or contradictory context',
+      'Restraint in personalization',
+      'Guardrail decay under prolonged interaction (red-teamed in Part 4)',
     ],
   },
 ];
+
+// Part 1 supplies its own columns; the rest use the failure/diagnostic/fix arc.
+const outline = parts.map((p) => ({
+  ...p,
+  cols: p.columns ?? ARC.map((c) => ({ label: c.label, cls: c.cls, items: p[c.key] })),
+}));
 ---
 <section id="outline" class="content-section">
   <div class="section-container">
     <h2 class="section-title">Tutorial Outline</h2>
 
     <div class="parts">
-      {parts.map((p) => (
+      {outline.map((p) => (
         <article class="part">
           <header class="part-header">
             <div class="part-tag">
               <span class="part-n">{p.n}</span>
               <span class="part-time">{p.minutes} min</span>
+              <span class="part-lead">{p.lead}</span>
             </div>
             <h3 class="part-title">{p.title}</h3>
+            {p.summary && <p class="part-summary">{p.summary}</p>}
           </header>
 
-          <div class="part-cols">
-            <div class="col col-fail">
-              <h4>Failure patterns</h4>
-              <ul>{p.failures.map((x) => <li>{x}</li>)}</ul>
-            </div>
-            <div class="col col-diag">
-              <h4>Diagnostics</h4>
-              <ul>{p.diagnostics.map((x) => <li>{x}</li>)}</ul>
-            </div>
-            <div class="col col-fix">
-              <h4>Fixes</h4>
-              <ul>{p.fixes.map((x) => <li>{x}</li>)}</ul>
-            </div>
+          <div class="part-cols" style={`--cols: ${p.cols.length}`}>
+            {p.cols.map((c) => (
+              <div class={`col ${c.cls}`}>
+                <h4>{c.label}</h4>
+                <ul>{c.items.map((x) => <li>{x}</li>)}</ul>
+              </div>
+            ))}
           </div>
+
+          {p.challenges && (
+            <div class="part-challenges">
+              <h4>Open challenges</h4>
+              <ul>{p.challenges.map((x) => <li>{x}</li>)}</ul>
+            </div>
+          )}
         </article>
       ))}
     </div>
@@ -123,7 +197,7 @@ const parts = [
 
 <style>
   #outline {
-    background: #f8f9fa;
+    background: white;
     padding: 4rem 1rem;
   }
 
@@ -160,12 +234,13 @@ const parts = [
   }
 
   .part-header {
-    padding: 1.4rem 1.6rem 1rem;
+    padding: 1.4rem 1.6rem 1.1rem;
     border-bottom: 1px solid #f0f1f5;
   }
 
   .part-tag {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.6rem;
     margin-bottom: 0.6rem;
@@ -191,6 +266,12 @@ const parts = [
     border-radius: 999px;
   }
 
+  .part-lead {
+    color: #555;
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+
   .part-title {
     font-size: 1.4rem;
     color: #2a2f6c;
@@ -198,9 +279,17 @@ const parts = [
     margin-bottom: 0;
   }
 
+  .part-summary {
+    margin: 0.6rem 0 0;
+    max-width: 860px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
   .part-cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(var(--cols, 3), 1fr);
     gap: 1px;
     background: #f0f1f5;
   }
@@ -210,7 +299,8 @@ const parts = [
     padding: 1.2rem 1.2rem 1.4rem;
   }
 
-  .col h4 {
+  .col h4,
+  .part-challenges h4 {
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -223,14 +313,17 @@ const parts = [
   .col-fail h4 { color: #b54040; border-bottom-color: rgba(181, 64, 64, 0.25); }
   .col-diag h4 { color: #b07a14; border-bottom-color: rgba(176, 122, 20, 0.25); }
   .col-fix  h4 { color: #1d7a3a; border-bottom-color: rgba(29, 122, 58, 0.25); }
+  .col-info h4 { color: #2a2f6c; border-bottom-color: rgba(42, 47, 108, 0.2); }
 
-  .col ul {
+  .col ul,
+  .part-challenges ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .col li {
+  .col li,
+  .part-challenges li {
     font-size: 0.92rem;
     color: #4a4a4a;
     line-height: 1.55;
@@ -238,7 +331,8 @@ const parts = [
     position: relative;
   }
 
-  .col li::before {
+  .col li::before,
+  .part-challenges li::before {
     content: '';
     position: absolute;
     left: 0;
@@ -254,8 +348,25 @@ const parts = [
   .col-diag li::before { background: #b07a14; }
   .col-fix  li::before { background: #1d7a3a; }
 
+  .part-challenges {
+    padding: 1.1rem 1.6rem 1.3rem;
+    border-top: 1px solid #f0f1f5;
+    background: #fafbff;
+  }
+
+  .part-challenges h4 { color: #5b4aa8; border-bottom-color: rgba(91, 74, 168, 0.22); }
+
+  .part-challenges ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+  }
+
+  .part-challenges li::before { background: #5b4aa8; }
+
   @media (max-width: 800px) {
     .part-cols { grid-template-columns: 1fr; }
+    .part-challenges ul { grid-template-columns: 1fr; }
     .section-title { font-size: 1.9rem; }
   }
 </style>

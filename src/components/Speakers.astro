@@ -1,39 +1,38 @@
 ---
 // Presenter cards. The four presenters are drawn from the EMNLP 2026
-// tutorial submission author block.
+// tutorial submission author block; photos are the proposal headshots.
+// Emails live in Contact.astro.
+// Optional zoom and shift reproduce the proposal's \headshot[zoom][offset]
+// framing: zoom enlarges the face inside the circle, and a positive shift
+// (percent of the circle) moves the image down to centre a high-sitting face.
 
 const speakers = [
   {
     name: 'Zoey Sha Li',
     role: 'Amazon',
-    part: 'Part 2',
     photo: '/speakers/zoey-sha-li.jpg',
     site: 'https://zoeyli.com',
-    email: '',
   },
   {
     name: 'Zihan Wang',
     role: 'Northwestern University',
-    part: 'Part 3',
-    photo: '/speakers/zihan-wang.png',
+    photo: '/speakers/zihan-wang.jpg',
+    zoom: 1.2,
     site: 'https://zihanwang314.github.io/',
-    email: 'zihanw@u.northwestern.edu',
   },
   {
     name: 'Hejie Cui',
     role: 'Google',
-    part: 'Part 4',
     photo: '/speakers/hejie-cui.jpg',
+    zoom: 1.5,
+    shift: 20,
     site: 'https://hejiecui.com',
-    email: '',
   },
   {
     name: 'Manling Li',
     role: 'Northwestern University',
-    part: 'Part 1',
     photo: '/speakers/manling-li.jpg',
     site: 'https://limanling.github.io/',
-    email: 'manling.li@northwestern.edu',
   },
 ];
 ---
@@ -46,7 +45,7 @@ const speakers = [
         <article class="speaker-card">
           <div class="photo-wrap">
             {s.photo
-              ? <img class="photo" src={s.photo} alt={s.name} />
+              ? <img class="photo" src={s.photo} alt={s.name} style={s.zoom && `transform: translateY(${s.shift ?? 0}%) scale(${s.zoom})`} />
               : <div class="photo placeholder" aria-hidden="true">{s.name.split(' ').map((p) => p[0]).join('').slice(0, 2)}</div>}
           </div>
           <div class="sp-info">
