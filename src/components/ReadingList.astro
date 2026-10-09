@@ -362,152 +362,115 @@ const sections = [
   },
 ];
 ---
-<section id="reading" class="content-section">
-  <div class="section-container">
-    <h2 class="section-title">Reading List</h2>
+<section id="reading" class="section">
+  <div class="wrap">
+    <header class="section-head">
+      <h2 class="section-title">Reading List</h2>
+      <p class="section-dek"><span class="star-inline" aria-hidden="true">&#9733;</span> marks recommended pre-tutorial reading.</p>
+    </header>
 
-    {sections.map((s) => (
-      <div class="reading-block">
-        <div class="reading-block-head">
-          <span class="block-tag">{s.part}</span>
-          <h3 class="block-title">{s.title}</h3>
+    <div class="blocks">
+      {sections.map((s) => (
+        <div class="block split">
+          <div class="block-head">
+            <span class="label block-part">{s.part}</span>
+            <h3 class="block-title">{s.title}</h3>
+          </div>
+          <ul class="refs">
+            {s.items.map((it) => (
+              <li class="ref">
+                {it.recommended && <span class="star" role="img" aria-label="Recommended" title="Recommended pre-tutorial reading">&#9733;</span>}
+                <a class="ref-title" href={it.link} target="_blank" rel="noopener">
+                  {it.label && <span class="ref-label">{it.label}</span>}
+                  {it.title}
+                </a>
+                <span class="ref-meta">{it.authors} <span aria-hidden="true">&middot;</span> {it.venue}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul class="reading-items">
-          {s.items.map((it) => (
-            <li class="reading-item">
-              <div class="ri-top">
-                {it.recommended && <span class="rec-star" title="Recommended pre-tutorial reading">&#9733;</span>}
-                {it.label && <span class="ri-label">{it.label}</span>}
-                <a href={it.link} target="_blank" rel="noopener" class="ri-title">{it.title}</a>
-              </div>
-              <div class="ri-meta">
-                <span class="ri-authors">{it.authors}</span>
-                <span class="ri-venue">{it.venue}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
-  #reading { background: #f8f9fa; padding: 4rem 1rem; }
-
-  .section-container { max-width: var(--page-max-width, 1100px); margin: 0 auto; }
-
-  .section-title {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #2a2f6c;
-    text-align: center;
-    margin-bottom: 2.2rem;
+  /* A bibliography: each part opens with an ink rule and uses the shared meta
+     column for its number and title; entries are separated by space, not boxes. */
+  .block {
+    padding-block: var(--space-xl) var(--space-2xl);
+    border-top: 1px solid var(--ink);
   }
 
-  .reading-block {
-    background: white;
-    border: 1px solid #e6e8ef;
-    border-radius: 14px;
-    margin-bottom: 1.4rem;
-    overflow: hidden;
-  }
+  .block:last-child { padding-bottom: 0; }
 
-  .reading-block-head {
-    padding: 1.1rem 1.4rem;
-    border-bottom: 1px solid #f0f1f5;
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-  }
-
-  .block-tag {
-    background: #2a2f6c;
-    color: white;
-    font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    flex-shrink: 0;
+  .block-part {
+    display: block;
+    margin-bottom: var(--space-2xs);
+    color: var(--rubric);
   }
 
   .block-title {
-    font-size: 1.15rem;
-    color: #2a2f6c;
-    font-weight: 700;
-    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: var(--weight-heading);
+    font-stretch: var(--stretch-heading);
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--ink);
+    text-wrap: balance;
   }
 
-  .reading-items {
+  .refs {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    display: grid;
+    gap: var(--space-md);
   }
 
-  .reading-item {
-    padding: 1rem 1.4rem;
-    border-bottom: 1px solid #f5f6fa;
+  /* Titles align whether or not an entry carries the recommended star. */
+  .ref {
+    position: relative;
+    display: grid;
+    gap: var(--space-2xs);
+    padding-left: 1.4rem;
   }
 
-  .reading-item:last-child { border-bottom: none; }
+  .star,
+  .star-inline { color: var(--rubric); }
 
-  .ri-top {
-    display: flex;
-    align-items: baseline;
-    gap: 0.45rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .rec-star {
-    color: #d99700;
+  .star {
+    position: absolute;
+    left: 0;
+    top: 0.15rem;
     font-size: 0.95rem;
-    flex-shrink: 0;
   }
 
-  .ri-label {
-    flex-shrink: 0;
-    background: #f0f1f8;
-    color: #2a2f6c;
-    font-weight: 700;
-    font-size: 0.78rem;
-    padding: 0.12rem 0.5rem;
-    border-radius: 999px;
-  }
-
-  .ri-title {
-    color: #2a2f6c;
-    font-weight: 600;
-    font-size: 1rem;
+  .ref-title {
+    font-size: var(--text-body);
+    line-height: 1.45;
+    color: var(--brand);
     text-decoration: none;
-    line-height: 1.4;
+    text-wrap: pretty;
   }
 
-  .ri-title:hover { color: #4a56c9; text-decoration: underline; }
-
-  .ri-meta {
-    font-size: 0.85rem;
-    color: #6b6b6b;
-    margin-bottom: 0.3rem;
+  .ref-title:hover {
+    color: var(--brand-hover);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
   }
 
-  .ri-authors { font-weight: 500; }
-
-  .ri-authors::after {
-    content: '·';
-    margin: 0 0.5rem;
-    color: #c4c4c4;
+  .ref-label {
+    margin-right: var(--space-xs);
+    font-family: var(--font-sans);
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
   }
 
-  .ri-venue {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.8rem;
-    color: #888;
-  }
-
-  @media (max-width: 700px) {
-    .section-title { font-size: 1.9rem; }
-    .reading-block-head { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .ref-meta {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--ink-faint);
   }
 </style>

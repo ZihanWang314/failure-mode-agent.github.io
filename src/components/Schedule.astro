@@ -1,120 +1,143 @@
 ---
 // Time-budgeted schedule for the 3.5-hour slot (about 3 hours of content plus a break).
 const rows = [
-  { time: '0:00 - 0:10', session: 'Part 1: The Development Loop of AI Agents', detail: 'What an agent is and how one is built: the closed agent loop, the current agent landscape, and a build lifecycle that maps onto Parts 2 to 5.', who: 'All presenters' },
-  { time: '0:10 - 0:50', session: 'Part 2: Agent Environments and Infrastructure', detail: 'Token misattribution, gradient spikes from low-probability tool tokens, and mis-scored overlong trajectories, with masking and importance-sampling fixes. Safety: the harness as an attack surface.', who: 'Zoey Sha Li' },
-  { time: '0:50 - 1:30', session: 'Part 3: Training Dynamics', detail: 'Collapse under verifiable rewards, reward hacking under learned rewards, and the zero-gradient barrier on tasks too hard to learn from. Safety: reward hacking under safety constraints.', who: 'Zihan Wang' },
-  { time: '1:30 - 2:00', session: 'Coffee break', detail: '', who: '', isBreak: true },
-  { time: '2:00 - 2:40', session: 'Part 4: Evaluation and Red Teaming', detail: 'Where static benchmarks break, closed-loop and contamination-resistant evaluation, and red teaming of agent attack surfaces.', who: 'Manling Li' },
-  { time: '2:40 - 3:20', session: 'Part 5: Test-Time Scaling and Adaptation', detail: 'When more inference compute stops helping, and how agent memory and self-authored skills degrade. Safety: memory poisoning and guardrail decay.', who: 'Hejie Cui' },
+  { time: '0:00 - 0:10', part: 'Part 1', session: 'The Development Loop of AI Agents', detail: 'What an agent is and how one is built: the closed agent loop, the current agent landscape, and a build lifecycle that maps onto Parts 2 to 5.', who: 'All presenters' },
+  { time: '0:10 - 0:50', part: 'Part 2', session: 'Agent Environments and Infrastructure', detail: 'Token misattribution, gradient spikes from low-probability tool tokens, and mis-scored overlong trajectories, with masking and importance-sampling fixes. Safety: the harness as an attack surface.', who: 'Zoey Sha Li' },
+  { time: '0:50 - 1:30', part: 'Part 3', session: 'Training Dynamics', detail: 'Collapse under verifiable rewards, reward hacking under learned rewards, and the zero-gradient barrier on tasks too hard to learn from. Safety: reward hacking under safety constraints.', who: 'Zihan Wang' },
+  { time: '1:30 - 2:00', session: 'Coffee break', isBreak: true },
+  { time: '2:00 - 2:40', part: 'Part 4', session: 'Evaluation and Red Teaming', detail: 'Where static benchmarks break, closed-loop and contamination-resistant evaluation, and red teaming of agent attack surfaces.', who: 'Manling Li' },
+  { time: '2:40 - 3:20', part: 'Part 5', session: 'Test-Time Scaling and Adaptation', detail: 'When more inference compute stops helping, and how agent memory and self-authored skills degrade. Safety: memory poisoning and guardrail decay.', who: 'Hejie Cui' },
   { time: '3:20 - 3:30', session: 'Synthesis and Q&A', detail: 'Which fixes transfer, which are domain-specific, and what diagnostic infrastructure the community needs most; release of reproductions and trace examples.', who: 'All presenters' },
 ];
 ---
-<section id="schedule" class="content-section">
-  <div class="section-container">
-    <h2 class="section-title">Schedule</h2>
+<section id="schedule" class="section">
+  <div class="wrap">
+    <header class="section-head">
+      <h2 class="section-title">Schedule</h2>
+      <p class="section-dek">Three and a half hours, including a 30-minute break. Times are counted from the start of the session.</p>
+    </header>
 
-    <div class="schedule-table-wrap">
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th class="col-time">Time</th>
-            <th class="col-sess">Session</th>
-            <th class="col-who">Presenter</th>
+    <table class="schedule">
+      <thead>
+        <tr>
+          <th class="label col-time" scope="col">Time</th>
+          <th class="label col-sess" scope="col">Session</th>
+          <th class="label col-who" scope="col">Presenter</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr class={r.isBreak ? 'is-break' : undefined}>
+            <td class="col-time">{r.time}</td>
+            <td class="col-sess">
+              {r.part && <span class="label sess-part">{r.part}</span>}
+              <span class="sess-name">{r.session}</span>
+              {r.detail && <span class="sess-detail">{r.detail}</span>}
+              {r.who && <span class="sess-who">{r.who}</span>}
+            </td>
+            <td class="col-who">{r.who}</td>
           </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr class={r.isBreak ? 'is-break' : ''}>
-              <td class="col-time mono">{r.time}</td>
-              <td class="col-sess">
-                <div class="sess-name">{r.session}</div>
-                {r.detail && <div class="sess-detail">{r.detail}</div>}
-              </td>
-              <td class="col-who">{r.who}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   </div>
 </section>
 
 <style>
-  #schedule { background: #f8f9fa; padding: 4rem 1rem; }
-
-  .section-container { max-width: var(--page-max-width, 1100px); margin: 0 auto; }
-
-  .section-title {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #2a2f6c;
-    text-align: center;
-    margin-bottom: 2.2rem;
-  }
-
-  .schedule-table-wrap {
-    border: 1px solid #e6e8ef;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(42, 47, 108, 0.04);
-  }
-
-  .schedule-table {
+  .schedule {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.95rem;
   }
 
-  .schedule-table thead th {
-    background: #2a2f6c;
-    color: white;
+  .schedule th {
+    padding: 0 var(--space-md) var(--space-sm) 0;
+    border-bottom: 1px solid var(--ink);
     text-align: left;
-    font-weight: 600;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0.85rem 1rem;
+    color: var(--ink-faint);
   }
 
-  .schedule-table tbody tr {
-    border-bottom: 1px solid #f0f1f5;
-    background: white;
-    transition: background-color 0.15s ease;
-  }
-
-  .schedule-table tbody tr:last-child { border-bottom: none; }
-  .schedule-table tbody tr:hover { background: #fafbff; }
-
-  .schedule-table tbody tr.is-break {
-    background: #f5f6fa;
-    color: #888;
-    font-style: italic;
-  }
-
-  .schedule-table td {
-    padding: 0.95rem 1rem;
+  .schedule td {
+    padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
+    border-bottom: 1px solid var(--rule);
     vertical-align: top;
+  }
+
+  .col-time {
+    width: 8.5rem;
+    white-space: nowrap;
+  }
+
+  td.col-time {
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    padding-top: calc(var(--space-lg) + 0.15rem);
+  }
+
+  .col-who { width: 11rem; }
+
+  td.col-who {
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
+    font-weight: 500;
+    color: var(--ink);
+    padding-top: calc(var(--space-lg) + 0.15rem);
+  }
+
+  .col-sess > span { display: block; }
+
+  .sess-part {
+    margin-bottom: var(--space-2xs);
+    color: var(--rubric);
+  }
+
+  .sess-name {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-heading);
+    font-stretch: var(--stretch-heading);
+    font-size: 1.1875rem;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .sess-detail {
+    max-width: 68ch;
+    margin-top: var(--space-xs);
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
     line-height: 1.55;
+    color: var(--ink-soft);
   }
 
-  .col-time { width: 11rem; }
-  .col-who  { width: 14rem; color: #555; font-weight: 500; }
+  /* Presenter repeated inside the session cell, shown only when the column is hidden. */
+  .col-sess > .sess-who { display: none; }
 
-  .mono {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.9rem;
-    color: #2a2f6c;
-    font-weight: 600;
+  .is-break td { padding-block: var(--space-md); }
+
+  .is-break td.col-time { color: var(--ink-soft); }
+
+  .is-break .sess-name {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: italic;
+    font-size: var(--text-body);
+    color: var(--ink-soft);
   }
 
-  .sess-name { color: #2a2f6c; font-weight: 600; margin-bottom: 0.15rem; }
-  .sess-detail { color: #666; font-size: 0.88rem; }
-
-  @media (max-width: 800px) {
-    .schedule-table { font-size: 0.88rem; }
-    .col-time { width: 6.5rem; }
+  @media (max-width: 720px) {
     .col-who { display: none; }
-    .schedule-table td { padding: 0.7rem 0.7rem; }
+    .col-time { width: 5.75rem; }
+    td.col-time { font-size: 0.875rem; }
+    .col-sess > .sess-who {
+      display: block;
+      margin-top: var(--space-xs);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
   }
 </style>

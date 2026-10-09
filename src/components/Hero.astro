@@ -1,24 +1,24 @@
 ---
-// Hero / banner. Tutorial title, venue, date, and quick links.
+// Hero / masthead. Venue line, title, subtitle, byline, and quick links.
 
 // Set to the slides URL once they are posted; the Slides button then becomes
 // an active primary link instead of a disabled "Coming soon" placeholder.
 const slidesUrl = '';
 const SlidesTag = slidesUrl ? 'a' : 'span';
+
+const presenters = ['Zoey Sha Li', 'Zihan Wang', 'Hejie Cui', 'Manling Li'];
+const byline = `${presenters.slice(0, -1).join(', ')}, and ${presenters.at(-1)}`;
 ---
-<section id="hero" class="content-section hero-section">
-  <span class="venue-badge">
-    <span class="venue-label">Tutorial</span>
-    <span class="venue-text">EMNLP 2026 &middot; November 2026</span>
-  </span>
+<section id="hero" class="hero">
+  <div class="wrap">
+    <p class="label hero-kicker reveal">EMNLP 2026 Tutorial <span aria-hidden="true">&middot;</span> November 2026</p>
+    <h1 class="hero-title reveal">Failure Modes in Agentic AI</h1>
+    <p class="hero-subtitle reveal">From Reproducible Triggers and Diagnostics to Reliable Fixes</p>
+    <p class="hero-byline reveal"><a href="#speakers">{byline}</a></p>
 
-  <h1 class="main-title" id="animated-title">Failure Modes in Agentic AI</h1>
-  <p class="subtitle" id="animated-subtitle">From Reproducible Triggers and Diagnostics to Reliable Fixes</p>
-
-  <div class="resources-section">
-    <div class="resources-buttons">
-      <a href="#schedule" class="resource-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
+    <div class="hero-links reveal">
+      <a href="#schedule" class="hero-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hero-icon" aria-hidden="true">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
           <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
           <line x1="3" y1="10" x2="21" y2="10"/>
@@ -29,19 +29,19 @@ const SlidesTag = slidesUrl ? 'a' : 'span';
         href={slidesUrl || undefined}
         target={slidesUrl ? '_blank' : undefined}
         rel={slidesUrl ? 'noopener' : undefined}
-        class:list={['resource-button', slidesUrl ? 'primary' : 'is-disabled']}
+        class:list={['hero-link', slidesUrl ? 'primary' : 'is-disabled']}
         aria-disabled={slidesUrl ? undefined : 'true'}
         title={slidesUrl ? undefined : 'Slides will be posted closer to the tutorial'}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hero-icon" aria-hidden="true">
           <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
           <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
         </svg>
         <span>Slides</span>
-        {!slidesUrl && <span class="soon-tag">Coming soon</span>}
+        {!slidesUrl && <span class="soon">coming soon</span>}
       </SlidesTag>
-      <a href="#speakers" class="resource-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
+      <a href="#speakers" class="hero-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hero-icon" aria-hidden="true">
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
           <circle cx="9" cy="7" r="4"/>
           <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
@@ -49,8 +49,8 @@ const SlidesTag = slidesUrl ? 'a' : 'span';
         </svg>
         <span>Presenters</span>
       </a>
-      <a href="mailto:mail@zoeyli.com,zihanw@u.northwestern.edu,manling.li@northwestern.edu" class="resource-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="resource-icon" aria-hidden="true">
+      <a href="mailto:mail@zoeyli.com,zihanw@u.northwestern.edu,manling.li@northwestern.edu" class="hero-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hero-icon" aria-hidden="true">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
           <polyline points="22,6 12,13 2,6"/>
         </svg>
@@ -61,185 +61,133 @@ const SlidesTag = slidesUrl ? 'a' : 'span';
 </section>
 
 <style>
-  .hero-section {
-    max-width: 1000px;
-    margin: 2.5rem auto 2.5rem;
-    padding: 4.5rem 1rem 4.5rem;
-    text-align: center;
+  /* Masthead: left-aligned, closed by a double rule like a journal title page. */
+  .hero {
+    padding-block: clamp(3.5rem, 2rem + 6vw, 7.5rem) clamp(3rem, 2rem + 4vw, 5rem);
+    border-bottom: 4px double var(--ink-soft);
   }
 
-  .venue-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 2.6rem;
-    padding: 0.55rem 1rem;
-    border: 1px solid rgba(42, 47, 108, 0.18);
-    border-radius: 999px;
-    background: linear-gradient(135deg, rgba(42, 47, 108, 0.08), rgba(74, 86, 201, 0.04));
-    color: #2a2f6c;
-    box-shadow: 0 10px 28px rgba(42, 47, 108, 0.06);
+  .hero-kicker {
+    color: var(--rubric);
+    margin-bottom: var(--space-lg);
   }
 
-  .venue-label {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    background: #2a2f6c;
-    color: white;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .hero-title {
+    max-width: 13ch;
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-stretch: var(--stretch-heading);
+    font-size: var(--text-display);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-wrap: balance;
   }
 
-  .venue-text {
-    font-size: 0.95rem;
-    font-weight: 600;
+  .hero-subtitle {
+    max-width: 34ch;
+    margin-top: var(--space-lg);
+    font-style: italic;
+    font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    text-wrap: balance;
   }
 
-  .main-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: #2a2f6c;
-    line-height: 1.1;
-    margin-bottom: 1.3rem;
-    min-height: 1.1em;
+  .hero-byline {
+    margin-top: var(--space-xl);
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
+    font-weight: 500;
+    color: var(--ink);
   }
 
-  .main-title.typing::after {
-    content: '';
-    display: inline-block;
-    width: 3px;
-    height: 0.92em;
-    margin-left: 5px;
-    background: #4a56c9;
-    vertical-align: text-bottom;
-    animation: caretBlink 0.8s step-end infinite;
+  .hero-byline a { text-decoration: none; }
+
+  .hero-byline a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
   }
 
-  .subtitle {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0;
-    line-height: 1.3;
-    opacity: 0;
-    animation: heroFadeUp 0.7s ease 1.7s forwards;
-  }
-
-  @keyframes caretBlink { 50% { opacity: 0; } }
-
-  @keyframes heroFadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .resources-section { margin-top: 2.8rem; }
-
-  .resources-buttons {
+  .hero-links {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.85rem;
+    gap: var(--space-sm);
+    margin-top: var(--space-2xl);
   }
 
-  .resource-button {
+  .hero-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background-color: white;
-    color: #2a2f6c;
-    padding: 0.7rem 1.2rem;
-    border-radius: 999px;
-    text-decoration: none;
-    border: 1px solid #e0e0e0;
+    gap: var(--space-xs);
+    min-height: 44px;
+    padding: 0 var(--space-md);
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
     font-weight: 500;
-    font-size: 0.95rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    transition: all 0.2s ease;
+    color: var(--ink);
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   }
 
-  .resource-button:hover {
-    background-color: #f5f7ff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(42, 47, 108, 0.08);
+  .hero-link:hover {
+    background: var(--ink);
+    color: var(--paper);
   }
 
-  .resource-button.primary {
-    background-color: #2a2f6c;
-    color: white;
-    border-color: #2a2f6c;
+  .hero-link.primary {
+    background: var(--ink);
+    color: var(--paper);
   }
 
-  .resource-button.primary:hover {
-    background-color: #1f2358;
-    border-color: #1f2358;
+  .hero-link.primary:hover {
+    background: var(--brand-hover);
+    border-color: var(--brand-hover);
   }
 
-  .resource-button.is-disabled {
-    background-color: #f6f7fb;
-    color: #8a8fb3;
+  .hero-link.is-disabled {
     border-style: dashed;
-    border-color: #d5d8e6;
-    box-shadow: none;
+    border-color: var(--ink-faint);
+    color: var(--ink-faint);
     cursor: not-allowed;
   }
 
-  .resource-button.is-disabled:hover {
-    background-color: #f6f7fb;
-    transform: none;
-    box-shadow: none;
+  .hero-link.is-disabled:hover {
+    background: transparent;
+    color: var(--ink-faint);
   }
 
-  .soon-tag {
-    padding: 0.1rem 0.45rem;
-    border-radius: 999px;
-    background: #e9ebf5;
-    color: #6b70a0;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+  .soon {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.875rem;
   }
 
-  .resource-icon {
-    width: 16px; height: 16px;
+  .hero-icon {
+    width: 16px;
+    height: 16px;
     stroke: currentColor;
-    stroke-width: 2;
+    stroke-width: 1.75;
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
-  @media (max-width: 768px) {
-    .main-title { font-size: 2.4rem; }
-    .subtitle { font-size: 1.25rem; }
+  /* One orchestrated entrance: the masthead settles in, line by line. */
+  .reveal { animation: rise 0.7s var(--ease-out) both; }
+  .reveal:nth-child(2) { animation-delay: 0.08s; }
+  .reveal:nth-child(3) { animation-delay: 0.16s; }
+  .reveal:nth-child(4) { animation-delay: 0.24s; }
+  .reveal:nth-child(5) { animation-delay: 0.32s; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .subtitle { opacity: 1; animation: none; }
+    .reveal { animation: none; }
   }
 </style>
-
-<script>
-  (function () {
-    const title = document.getElementById('animated-title');
-    if (!title) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const full = title.textContent || '';
-    title.textContent = '';
-    title.classList.add('typing');
-    let i = 0;
-    function step() {
-      title.textContent = full.slice(0, i);
-      if (i < full.length) {
-        i++;
-        setTimeout(step, 55);
-      } else {
-        title.classList.remove('typing');
-      }
-    }
-    step();
-  })();
-</script>

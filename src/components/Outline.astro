@@ -157,35 +157,40 @@ const outline = parts.map((p) => ({
   cols: p.columns ?? ARC.map((c) => ({ label: c.label, cls: c.cls, items: p[c.key] })),
 }));
 ---
-<section id="outline" class="content-section">
-  <div class="section-container">
-    <h2 class="section-title">Tutorial Outline</h2>
+<section id="outline" class="section">
+  <div class="wrap">
+    <header class="section-head">
+      <h2 class="section-title">Tutorial Outline</h2>
+      <p class="section-dek">Parts 2 to 5 each follow the same arc: failure patterns, diagnostics, fixes, and open challenges.</p>
+    </header>
 
     <div class="parts">
       {outline.map((p) => (
         <article class="part">
-          <header class="part-header">
-            <div class="part-tag">
-              <span class="part-n">{p.n}</span>
+          <div class="split">
+            <p class="part-meta">
+              <span class="label part-n">{p.n}</span>
               <span class="part-time">{p.minutes} min</span>
               <span class="part-lead">{p.lead}</span>
+            </p>
+            <div>
+              <h3 class="part-title">{p.title}</h3>
+              {p.summary && <p class="part-summary">{p.summary}</p>}
             </div>
-            <h3 class="part-title">{p.title}</h3>
-            {p.summary && <p class="part-summary">{p.summary}</p>}
-          </header>
+          </div>
 
           <div class="part-cols" style={`--cols: ${p.cols.length}`}>
             {p.cols.map((c) => (
               <div class={`col ${c.cls}`}>
-                <h4>{c.label}</h4>
+                <h4 class="label">{c.label}</h4>
                 <ul>{c.items.map((x) => <li>{x}</li>)}</ul>
               </div>
             ))}
           </div>
 
           {p.challenges && (
-            <div class="part-challenges">
-              <h4>Open challenges</h4>
+            <div class="col part-challenges">
+              <h4 class="label">Open challenges</h4>
               <ul>{p.challenges.map((x) => <li>{x}</li>)}</ul>
             </div>
           )}
@@ -196,177 +201,119 @@ const outline = parts.map((p) => ({
 </section>
 
 <style>
-  #outline {
-    background: white;
-    padding: 4rem 1rem;
+  /* Each part opens with an ink rule; its head uses the shared meta column,
+     and the arc columns run the full measure below it. */
+  .part {
+    padding-block: var(--space-xl) var(--space-2xl);
+    border-top: 1px solid var(--ink);
   }
 
-  .section-container {
-    max-width: var(--page-max-width, 1100px);
-    margin: 0 auto;
-  }
+  .part:last-child { padding-bottom: 0; }
 
-  .section-title {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #2a2f6c;
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-
-  .parts {
+  .part-meta {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: var(--space-2xs);
+    padding-top: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-meta);
+    line-height: 1.4;
   }
 
-  .part {
-    background: white;
-    border-radius: 14px;
-    border: 1px solid #e6e8ef;
-    overflow: hidden;
-    transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-  }
-
-  .part:hover {
-    box-shadow: 0 14px 32px rgba(42, 47, 108, 0.07);
-    border-color: rgba(42, 47, 108, 0.18);
-  }
-
-  .part-header {
-    padding: 1.4rem 1.6rem 1.1rem;
-    border-bottom: 1px solid #f0f1f5;
-  }
-
-  .part-tag {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.6rem;
-  }
-
-  .part-n {
-    background: #2a2f6c;
-    color: white;
-    font-weight: 700;
-    font-size: 0.75rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
+  .part-n { color: var(--rubric); }
 
   .part-time {
-    background: #f0f1f8;
-    color: #2a2f6c;
-    font-weight: 600;
-    font-size: 0.78rem;
-    padding: 0.22rem 0.55rem;
-    border-radius: 999px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
   }
 
   .part-lead {
-    color: #555;
     font-weight: 500;
-    font-size: 0.85rem;
+    color: var(--ink);
   }
 
   .part-title {
-    font-size: 1.4rem;
-    color: #2a2f6c;
-    font-weight: 700;
-    margin-bottom: 0;
+    font-family: var(--font-heading);
+    font-weight: var(--weight-heading);
+    font-stretch: var(--stretch-heading);
+    font-size: var(--text-h3);
+    line-height: 1.2;
+    color: var(--ink);
+    text-wrap: balance;
   }
 
   .part-summary {
-    margin: 0.6rem 0 0;
-    max-width: 860px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
+    max-width: 68ch;
+    margin-top: var(--space-sm);
+    color: var(--ink-soft);
+    text-wrap: pretty;
   }
 
   .part-cols {
     display: grid;
-    grid-template-columns: repeat(var(--cols, 3), 1fr);
-    gap: 1px;
-    background: #f0f1f5;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
   }
 
-  .col {
-    background: white;
-    padding: 1.2rem 1.2rem 1.4rem;
+  .col { --marker: var(--ink-faint); }
+  .col-fail { --marker: var(--rubric); }
+  .col-diag { --marker: var(--ochre); }
+  .col-fix  { --marker: var(--green); }
+  .col-info { --marker: var(--brand); }
+
+  .col h4 {
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--rule);
+    color: var(--marker);
   }
 
-  .col h4,
-  .part-challenges h4 {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.8rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #f0f1f5;
-  }
-
-  .col-fail h4 { color: #b54040; border-bottom-color: rgba(181, 64, 64, 0.25); }
-  .col-diag h4 { color: #b07a14; border-bottom-color: rgba(176, 122, 20, 0.25); }
-  .col-fix  h4 { color: #1d7a3a; border-bottom-color: rgba(29, 122, 58, 0.25); }
-  .col-info h4 { color: #2a2f6c; border-bottom-color: rgba(42, 47, 108, 0.2); }
-
-  .col ul,
-  .part-challenges ul {
+  .col ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    display: grid;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
   }
 
-  .col li,
-  .part-challenges li {
-    font-size: 0.92rem;
-    color: #4a4a4a;
-    line-height: 1.55;
-    padding: 0.4rem 0 0.4rem 1.1rem;
+  .col li {
     position: relative;
+    padding-left: 1.1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+    text-wrap: pretty;
   }
 
-  .col li::before,
-  .part-challenges li::before {
+  /* A short hairline marker in the column's color. */
+  .col li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.85rem;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #2a2f6c;
-    opacity: 0.4;
+    top: 0.75em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--marker);
   }
-
-  .col-fail li::before { background: #b54040; }
-  .col-diag li::before { background: #b07a14; }
-  .col-fix  li::before { background: #1d7a3a; }
 
   .part-challenges {
-    padding: 1.1rem 1.6rem 1.3rem;
-    border-top: 1px solid #f0f1f5;
-    background: #fafbff;
+    --marker: var(--brand);
+    margin-top: var(--space-xl);
   }
-
-  .part-challenges h4 { color: #5b4aa8; border-bottom-color: rgba(91, 74, 168, 0.22); }
 
   .part-challenges ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-xl);
   }
 
-  .part-challenges li::before { background: #5b4aa8; }
-
-  @media (max-width: 800px) {
-    .part-cols { grid-template-columns: 1fr; }
-    .part-challenges ul { grid-template-columns: 1fr; }
-    .section-title { font-size: 1.9rem; }
+  @media (max-width: 760px) {
+    .part-meta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: var(--space-sm);
+      padding-top: 0;
+    }
+    .part-cols { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
+    .part-challenges ul { grid-template-columns: minmax(0, 1fr); }
   }
 </style>

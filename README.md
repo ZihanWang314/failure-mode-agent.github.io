@@ -13,12 +13,11 @@ Built with Astro 5, based on the `v1` template from [`RAGEN-AI/ragen-ai.github.i
 ├── package.json            # astro 5.x only
 ├── public/                 # Static assets served at /
 │   ├── favicon.svg
-│   ├── background-blurred.svg
 │   └── speakers/           # Presenter headshots
 └── src/
-    ├── layouts/Layout.astro      # HTML shell, meta tags, fonts, header / footer slots
+    ├── layouts/Layout.astro      # HTML shell, meta tags, fonts, design tokens, header / footer slots
     ├── pages/index.astro         # Composes the single-page site (section order)
-    ├── styles/global.css         # Site-wide overrides only
+    ├── styles/global.css         # Shared section scaffolding (.wrap, .section, .label, .split)
     └── components/               # One per section, in page order
         ├── Header.astro          # Sticky nav with section anchors
         ├── Hero.astro            # Title, subtitle, venue, quick-link buttons
@@ -70,15 +69,16 @@ Site content follows the EMNLP 2026 tutorial proposal (`acl_latex.tex` and its `
 - **Reading list:** `sections` array in `src/components/ReadingList.astro` (proposal Reading List; titles, venues, and links from `custom.bib`). `recommended: true` adds the star; `label` adds a short-name tag when the paper title lacks the name the tutorial uses (e.g. VeRL for HybridFlow).
 - **Presenter cards:** `speakers` array in `src/components/Speakers.astro`. Photos are the proposal headshots in `public/speakers/`; optional `zoom` and `shift` reproduce the proposal's per-photo framing.
 - **Contact emails:** `contacts` array in `src/components/Contact.astro`, and the Contact button `mailto` in `Hero.astro`.
-- **Section order:** `src/pages/index.astro`. Keep the nav links in `Header.astro` in the same order, and alternate section backgrounds (white, `#f8f9fa`).
+- **Section order:** `src/pages/index.astro`. Keep the nav links in `Header.astro` in the same order. Every section uses the shared `.section`, `.wrap`, and `.section-head` classes from `src/styles/global.css`; sections are separated by hairline rules, not background colors.
 
 Styles for each section live in scoped `<style>` blocks at the bottom of the same file.
 
 ## Style rules
 
 - No em-dashes (U+2014) or en-dashes (U+2013) anywhere in the source. Use commas, periods, semicolons, colons, parentheses, or hyphens instead. This is enforced project-wide.
-- Brand color: `#2a2f6c` (deep indigo). Accent: `#4a56c9`.
-- Typography: Inter, weights 400 / 500 / 600 / 700 / 800.
+- Design context (audience, personality, principles) lives in `.impeccable.md`. The direction is rigorous and editorial: typography, hairline rules, and whitespace instead of cards, gradients, or pill buttons.
+- Color: OKLCH tokens in `Layout.astro`. Neutrals are tinted toward the brand indigo (`--brand`, about `#2a2f6c`); the vermilion `--rubric` marks part numbers, stars, and failure labels only. Every text color clears WCAG AA on both paper tones.
+- Typography: Archivo semi-condensed (`--font-display` / `--font-heading`) for the hero, section, part, session, and reading-list titles; Archivo (`--font-sans`) for navigation, labels, metadata, and times with tabular numerals; Literata (`--font-serif`) for reading text and italic subtitles. No monospace.
 
 ## Attribution
 
