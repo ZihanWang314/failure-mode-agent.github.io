@@ -128,7 +128,7 @@ const parts = [
       'Three failures of deployment-time improvement: test-time scaling, where more inference compute stops helping; memory and skills, where accumulated state degrades rather than aids; and recursive self-improvement, where a harness update appears to help locally but fails to generalize.',
     failures: [
       'Inverse-U test-time scaling: accuracy peaks, then degrades into over-reasoning loops, self-doubt loops, and reasoning collapse at long horizons',
-      'Memory failures by tier: context saturation, drift as facts grow stale, and poisoning that turns the store into an attack vector',
+      'Memory failures by tier: context saturation, drift as facts grow stale, and retrieval that surfaces irrelevant or outdated state',
       'Skill failures in self-authored, cached skills: generation errors, overgeneralization, and a verification gap',
       'Harness-evolution failures: edits target the wrong component, overfit visible feedback, or silently regress behavior outside the development trace',
     ],
@@ -148,11 +148,9 @@ const parts = [
     ],
     challenges: [
       'When to trigger compression',
-      'Adversarial robustness of memory to poisoned or contradictory context',
       'Restraint in personalization',
       'Whether improvement survives hidden-data replay rather than optimizing the visible development loop',
-      'Safe editable surfaces and durable guardrails for self-improving harnesses',
-      'Guardrail decay under prolonged interaction (red-teamed in Part 4)',
+      'Stable, reusable harness updates across tasks and model backbones',
     ],
   },
 ];
